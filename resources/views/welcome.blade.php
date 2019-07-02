@@ -83,7 +83,7 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Cook too match!再変更チカシ
+                Cook too match!再変更チカシ岡村
             </div>
         </div>
     </div>
