@@ -80,7 +80,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                Cook too match!変更
+                Cook too match!再変更
                 </div>
             </div>
         </div>
