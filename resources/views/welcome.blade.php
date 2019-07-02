@@ -83,7 +83,7 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Cook too match!再変更チカシ岡村中村皆ですねいやしかし
+                Cook too match!再変更チカシ岡村中村皆ですねいやしかしマジすか？
             </div>
         </div>
     </div>
