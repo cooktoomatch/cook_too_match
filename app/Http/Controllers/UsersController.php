@@ -7,33 +7,41 @@ use App\User;
 use Validator;
 use Auth;
 
-class UsersController extends Controller {
-    public function __construct() {
+class UsersController extends Controller
+{
+    public function __construct()
+    {
         $this->middleware('auth');
     }
-    
-    public function index() {
+
+    public function index()
+    {
         $users = User::orderBy('created_at', 'asc')->paginate(10);
         return view('users_index', ['users' => $users]);
     }
 
-    public function new() {
-        // 
-    }
-    
-    public function create(Request $request) {
+    public function new()
+    {
         // 
     }
 
-    public function show(User $users) {
+    public function create(Request $request)
+    {
+        // 
+    }
+
+    public function show(User $users)
+    {
         return view('users_show', ['user' => $users]);
     }
-    
-    public function edit(User $users) {
+
+    public function edit(User $users)
+    {
         return view('users_edit', ['user' => $users]);
     }
-    
-    public function update(Request $request) {
+
+    public function update(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'icon' => 'file | image | mimes:jpeg,png',
             'name' => 'required',
@@ -41,10 +49,12 @@ class UsersController extends Controller {
         ]);
 
         if ($validator->fails()) {
-            return redirect('/users/edit/'.$request->id)
+            return redirect('/users/edit/' . $request->id)
                 ->withInput()
                 ->withErrors($validator);
         }
+
+        dd($request->file('icon'));
 
         $users = User::find($request->id);
         $users->name = $request->name;
@@ -57,8 +67,9 @@ class UsersController extends Controller {
         $users->save();
         return redirect('/users');
     }
-    
-    public function destroy(User $user) {
+
+    public function destroy(User $user)
+    {
         $user->delete();
         return redirect('/users');
     }
