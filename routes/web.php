@@ -1,4 +1,5 @@
 <?php
+
 use App\Cook;
 use Illuminate\Http\Request;
 
@@ -6,6 +7,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
+
+Route::get("/jsonMessage", "MessagesController@json");
 
 Route::get('auth/login', 'Auth\SocialController@authLogin');
 Route::get('auth/login/facebook', 'Auth\SocialController@facebookRedirect');
@@ -33,9 +36,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/conversations/store', 'ConversationsController@store');
 
     // // messages
-    Route::resource('conversations.messages',
-                    'MessagesController',
-                    ['only' => ['index', 'store']]
+    Route::resource(
+        'conversations.messages',
+        'MessagesController',
+        ['only' => ['index', 'store']]
     );
 
     // home

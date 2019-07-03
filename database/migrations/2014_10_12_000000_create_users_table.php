@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('id_picture')->nullable();
             $table->text('description')->nullable();
             $table->boolean('admin')->default(false);
-            $table->integer('longitude')->nullable();
-            $table->integer('latitude')->nullable();
+            $table->string('adress')->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
