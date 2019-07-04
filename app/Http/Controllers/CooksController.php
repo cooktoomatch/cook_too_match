@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use App\Cook;
 use App\User;
+use App\Comment;
 use Validator;
 use Auth;
 
-class CooksController extends Controller {
-    public function __construct() {
+class CooksController extends Controller
+{
+    public function __construct()
+    {
         $this->middleware('auth');
     }
-    
-    public function index() {
+
+    public function json()
+    {
+        return Comment::all();
+    }
+
+    public function index()
+    {
         $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
         $addArr = [];
         $users = User::orderBy('created_at', 'asc')->get();
@@ -23,16 +33,18 @@ class CooksController extends Controller {
                 'address' => $users[$i]->address,
                 'lat' => $users[$i]->latitude,
                 'lng' => $users[$i]->longitude,
-            ));
+            ));
         }
         return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'adArr' => json_encode($addArr)]);
     }
 
-    public function create() {
+    public function create()
+    {
         return view('cooks_new');
     }
-    
-    public function store(Request $request) {
+
+    public function store(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name'   => 'required | max:255',
             'image' => 'file | image | mimes:jpeg,png',
@@ -42,7 +54,7 @@ class CooksController extends Controller {
             'start_time'   => 'required',
             'end_time'   => 'required',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect('/cooks/create')
                 ->withInput()
@@ -60,19 +72,22 @@ class CooksController extends Controller {
         $cooks->num = $request->num;
         $cooks->start_time = $request->start_time;
         $cooks->end_time = $request->end_time;
-        $cooks->save(); 
+        $cooks->save();
         return redirect('/cooks');
     }
 
-    public function show(Cook $cooks) {
+    public function show(Cook $cooks)
+    {
         return view('cooks_show', ['cook' => $cooks]);
     }
-    
-    public function edit(Cook $cooks) {
+
+    public function edit(Cook $cooks)
+    {
         return view('cooks_edit', ['cook' => $cooks]);
     }
-    
-    public function update(Request $request) {
+
+    public function update(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name'   => 'required | max:255',
             'image' => 'required | file | image | mimes:jpeg,png',
@@ -82,7 +97,7 @@ class CooksController extends Controller {
             'start_time'   => 'required',
             'end_time'   => 'required',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect('/cooks/edit')
                 ->withInput()
@@ -105,9 +120,21 @@ class CooksController extends Controller {
         $cooks->save();
         return redirect('/cooks');
     }
-    
-    public function destroy(Cook $cook) {
+
+    public function destroy(Cook $cook)
+    {
         $cook->delete();
         return redirect('/cooks');
+    }
+    public function comment(CommentRequest $request)
+    {
+        $comment = new Comment;
+        $comment->cook_id = $request->cook_id;
+        $comment->user_id = $request->user_id;
+        $comment->content = $request->content;
+        $comment->save();
+        // return redirect('/conversations/' . $request->conversation_id . '/messages');
+
+        return $comment;
     }
 }

@@ -11,7 +11,7 @@
         </td>
         <td>
             <div>サムネイル: </div>
-            <img src="{{ asset('storage/cook_image/' . $cook->image) }}" alt="cook_image" width="300">
+            <!-- <img src="{{ asset('storage/cook_image/' . $cook->image) }}" alt="cook_image" width="300"> -->
         </td>
         <td>
             <div>説明文: {{ $cook->description }}</div>
@@ -40,10 +40,21 @@
         <td>
             <form action="{{ url('cook/'.$cook->id) }}" method="POST">
                 {{ csrf_field() }}
-                {{ method_field('DELETE') }}     
+                {{ method_field('DELETE') }}
                 <button type="submit" class="btn btn-danger">削除</button>
             </form>
         </td>
     </tr>
+
+    <input type="hidden" value="{{ Auth::user()->id }}" class="user_id">
+    <input type="text" class="text">
+    <button class="pyorosiku">ヒョロしく</button>
+    <div class="display">
+
+    </div>
 </div>
+@endsection
+
+@section("script")
+<script src="{{ asset('js/comment.js') }}" defer></script>
 @endsection

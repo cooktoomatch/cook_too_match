@@ -1,53 +1,55 @@
 const pathname = location.pathname;
 const path = pathname.split('/');
 
-const conversation = path[2];
+const cook_id = path[3];
+
 
 //ページを開いた際に実行される関数
-async function message() {
+async function comment() {
 
     //jsonMessage(web.phpに新たに追加)からmessageテーブルのデータを取得
-    const message = await axios.get(`/jsonMessage`);
+    const comment = await axios.get(`/jsonComment`);
+
+    console.log(comment)
 
     let content = ''
 
     //contentに足していく。
-    message.data.forEach(element => {
+    comment.data.forEach(element => {
         content += tag(element.content)
     });
 
 
-    //tbodyに表示させる
-    $('.tbody').html(content);
-
+    // displayに表示させる
+    $('.display').html(content);
 }
-
 //関数実行
-message();
+
+comment();
 
 
 //コメントを
-$('.btn').on('click', function () {
+$('.pyorosiku').on('click', function () {
 
 
     async function submit() {
 
         const params = {
-            content: $('.form-control').val(),
-            conversation_id: $('.conversation_id').val(),
+            cook_id: cook_id,
             user_id: $('.user_id').val(),
+            content: $('.text').val(),
         }
 
-        await axios.post(`/conversations/${conversation}/messages`, params)
+        await axios.post(`/cooks/show/${cook_id}`, params)
             .then(res => {
                 const content = tag(res.data.content);
 
-                $('.tbody').append(content)
+                $('.display').append(content)
 
-                $('.form-control').val('')
+                $('.text').val('')
             })
             .catch(e => {
-                alert(e.response)
+                alert(e.response.data.errors.content)
             });
     }
 
