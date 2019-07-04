@@ -19,6 +19,7 @@ class CreateCooksTable extends Migration
             $table->string('image')->nullable();
             $table->string('description');
             $table->integer('user_id')->index();
+            // $table->unsignedInteger('category_id')->nullable();
             $table->integer('price');
             $table->integer('num');
             $table->text('etc')->nullable();

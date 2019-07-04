@@ -9,6 +9,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get("/jsonMessage", "MessagesController@json");
+Route::get("/jsonComment", "CooksController@json");
 
 Route::get('auth/login', 'Auth\SocialController@authLogin');
 Route::get('auth/login/facebook', 'Auth\SocialController@facebookRedirect');
@@ -20,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cooks/create', 'CooksController@create');
     Route::post('/cooks/store', 'CooksController@store');
     Route::get('/cooks/show/{cooks}', 'CooksController@show');
+    Route::post('/cooks/show/{cooks}', 'CooksController@comment');
     Route::get('/cooks/edit/{cooks}', 'CooksController@edit');
     Route::put('/cooks/update', 'CooksController@update');
     Route::delete('/cook/{cook}', 'CooksController@destroy');
