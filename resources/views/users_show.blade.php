@@ -30,10 +30,7 @@
             <div>紹介文: {{ $user->description }}</div>
         </td>
         <td class="table-text">
-            <div>経度: {{ $user->longitude }}</div>
-        </td>
-        <td class="table-text">
-            <div>緯度: {{ $user->latitude }}</div>
+            <div>住所: {{ $user->adress }}</div>
         </td>
         <td class="table-text">
             <form action="{{ url('users/edit/'.$user->id) }}" method="GET">
