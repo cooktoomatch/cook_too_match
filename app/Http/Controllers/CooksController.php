@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cook;
+use App\User;
 use Validator;
 use Auth;
 
@@ -14,7 +15,13 @@ class CooksController extends Controller {
     
     public function index() {
         $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
-        return view('cooks_index', ['cooks' => $cooks]);
+        $adArr = [];
+        $users = User::orderBy('created_at', 'asc')->get();
+        $currentUser = User::find(Auth::user()->id);
+        for ($i = 0; $i < count($users); $i++) {
+            array_push($adArr, $users[$i]->adress);
+        }
+        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'adArr' => json_encode($adArr)]);
     }
 
     public function create() {
