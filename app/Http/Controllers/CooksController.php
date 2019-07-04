@@ -40,6 +40,7 @@ class CooksController extends Controller
 
     public function create()
     {
+
         return view('cooks_new');
     }
 

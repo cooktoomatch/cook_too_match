@@ -5,7 +5,7 @@
     <div class="card-title">
         <h2>料理の新規登録</h2>
     </div>
-	@include('common.errors')
+    @include('common.errors')
     <form action="{{ url('cooks/store') }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
@@ -29,8 +29,12 @@
             <input type="number" name="num" value="{{ old('num') }}" class="form-control">
         </div>
         <div class="form-group">
-            <label for="start_time" class="control-label">提供可能開始時間</label>
-            <input type="date" name="start_time" value="{{ old('start_time') }}" class="form-control">
+            <select name="year" class="year">
+            </select>
+            <select name="month" class="month">
+            </select>
+            <select name="day" class="day">
+            </select>
         </div>
         <div class="form-group">
             <label for="end_time" class="control-label">提供可能終了時間</label>
@@ -45,4 +49,8 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section("script")
+<script src="{{ asset('js/date.js') }}"></script>
 @endsection
