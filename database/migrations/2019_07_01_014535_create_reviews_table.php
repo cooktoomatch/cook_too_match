@@ -21,9 +21,6 @@ class CreateReviewsTable extends Migration
             $table->text('comment')->nullable();
             $table->unique(['user_id', 'cook_id']);
             $table->timestamps();
-
-            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
-            $table->foreign("cook_id")->references("id")->on("cooks")->onDelete('cascade');
         });
     }
 

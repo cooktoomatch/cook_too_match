@@ -18,17 +18,14 @@ class CreateCooksTable extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('description');
-            $table->nsignedInteger('user_id')->index();
-            $table->nsignedInteger('category_id');
+            $table->integer('user_id')->index();
+            // $table->unsignedInteger('category_id')->nullable();
             $table->integer('price');
             $table->integer('num');
             $table->text('etc')->nullable();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->timestamps();
-
-            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
-            $table->foreign("category_id")->references("id")->on("cook_categories")->onDelete('set null');
         });
     }
 
