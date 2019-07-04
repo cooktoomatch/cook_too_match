@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Comment;
+use App\Cook;
 use Faker\Factory as Faker;
 
 class UsersTableSeeder extends Seeder
@@ -31,6 +33,20 @@ class UsersTableSeeder extends Seeder
             'icon' => 'storage/user_icon/1409251889212522_5d1a60b069019.jpg',
             'description' => 'aaaです、こんにちは',
             'address' => $faker->address,
+        ]);
+      
+        Cook::create([
+            'name' => 'カレーパンマン',
+            'description' => 'アンパンマンの一味',
+            'user_id' => 1,
+            'price' => 100,
+            'num' => '1',
+        ]);
+
+        Comment::create([
+            'cook_id' => 1,
+            'user_id' => 1,
+            'content' => 'まじ卍',
         ]);
 
         for ($i = 0; $i <= 30; $i++) {
