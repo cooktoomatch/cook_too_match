@@ -16,6 +16,7 @@ class CreateCookCategoriesTable extends Migration
         Schema::create('cook_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('cook_id')->index();
             $table->timestamps();
         });
     }
