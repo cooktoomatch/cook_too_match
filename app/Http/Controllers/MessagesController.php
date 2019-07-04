@@ -18,7 +18,7 @@ class MessagesController extends Controller
     }
 
     public function index(Conversation $conversation)
-    {
+    {   
         $messages = $conversation->messages;
 
         // dd($conversation->count());

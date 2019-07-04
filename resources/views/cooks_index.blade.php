@@ -7,11 +7,10 @@
         <a class="btn" href="{{ url('/cooks/create') }}">新規投稿</a>
     </div>
     @include('common.errors')
-
+    <div id="map" style="height: 400px;"></div>
     @if (count($cooks) > 0)
     <div class="card-body">
         <div class="card-body">
-            <div id="map" style="height: 400px;"></div>
             <table class="table table-striped task-table">
                 <tbody>
                     @foreach ($cooks as $cook)
@@ -63,17 +62,9 @@
         });
 
         for (let i=0; i<arr.length; i++) {
-            geocoder.geocode({
-                'address': arr[i]
-            }, function(results, status) {
-                if (status === 'OK') {
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: results[0].geometry.location
-                    });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
+            var marker = new google.maps.Marker({
+                map: map,
+                position: {lat: arr[i].lat, lng: arr[i].lng}
             });
         }
     };
