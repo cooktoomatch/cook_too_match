@@ -25,13 +25,17 @@ class CooksController extends Controller
     public function index()
     {
         $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
-        $adArr = [];
+        $addArr = [];
         $users = User::orderBy('created_at', 'asc')->get();
         $currentUser = User::find(Auth::user()->id);
         for ($i = 0; $i < count($users); $i++) {
-            array_push($adArr, $users[$i]->adress);
+            array_push($addArr, array(
+                'address' => $users[$i]->address,
+                'lat' => $users[$i]->latitude,
+                'lng' => $users[$i]->longitude,
+            ));
         }
-        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'adArr' => json_encode($adArr)]);
+        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'adArr' => json_encode($addArr)]);
     }
 
     public function create()
@@ -43,7 +47,7 @@ class CooksController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'   => 'required | max:255',
-            'image' => 'required | file | image | mimes:jpeg,png',
+            'image' => 'file | image | mimes:jpeg,png',
             'description' => 'required',
             'price'   => 'required',
             'num'   => 'required',
@@ -102,8 +106,10 @@ class CooksController extends Controller
 
         $cooks = Cook::find($request->id);
         $cooks->name = $request->name;
-        $filename = $request->file('image')->store('public/cook_image');
-        $cooks->image = basename($filename);
+        if ($request->file('image')) {
+            $filename = $request->file('image')->store('public/cook_image');
+            $cooks->image = basename($filename);
+        }
         $cooks->description = $request->description;
         $cooks->price = $request->price;
         $cooks->etc = $request->etc;

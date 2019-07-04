@@ -22,7 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('id_picture')->nullable();
             $table->text('description')->nullable();
             $table->boolean('admin')->default(false);
-            $table->string('adress')->nullable();
+            $table->string('address')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('pref')->nullable();
+            $table->string('town')->nullable();
+            $table->string('building')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->rememberToken();

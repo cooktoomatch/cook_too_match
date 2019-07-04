@@ -85,12 +85,18 @@ class UsersController extends Controller
         $users = User::find($request->id);
         $users->name = $request->name;
         $users->email = $request->email;
-        $filename = $request->file('icon')->store('public/user_icon');
-        $users->icon = basename($filename);
+        if ($request->file('icon')) {
+            $filename = $request->file('icon')->store('public/user_icon');
+            $users->icon = basename($filename);
+        }
         $users->description = $request->description;
         $users->latitude = $lat;
         $users->longitude = $lng;
-        $users->adress = $address;
+        $users->zip = $request->zip;
+        $users->pref = $request->pref;
+        $users->town = $request->town;
+        $users->building = $request->building;
+        $users->address = $address;
         $users->save();
 
         return redirect('/users');
