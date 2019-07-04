@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="zip" class="col-sm-2 control-label">郵便番号</label>
                 <div class="col-sm-4">
-                <input type="text" class="form-control alphabet" name="zip" id="zip" pattern="\d{3}[\-\s]?\d{4}" x-autocompletetype="postal-code" required>
+                <input type="text" class="form-control alphabet" name="zip" id="zip" pattern="\d{3}[\-\s]?\d{4}" x-autocompletetype="postal-code" value="{{$user->zip}}" required>
                 <span class="help-block"><span class="label label-default">例</span>123 4567</span>
                 <span class="help-block">入力後に住所が自動入力されます</span>
                 </div>
@@ -38,8 +38,8 @@
             <div class="form-group">
                 <label for="pref" class="col-sm-2 control-label">都道府県</label>
                 <div class="col-sm-3">
-                <select name="pref" id="pref" class="form-control" x-autocompletetype="region" required>
-                <option value="" selected="selected">-- 都道府県 --</option>
+                <select name="pref" id="pref" class="form-control" x-autocompletetype="region" required data-selected="{{$user->pref}}">
+                <option value="">-- 都道府県 --</option>
                 <optgroup label="北海道">
                     <option value="1">北海道</option>
                 </optgroup>
@@ -112,7 +112,7 @@
             <div class="form-group">
                 <label for="town" class="col-sm-2 control-label">市区町村/番地</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" name="town" id="town" x-autocompletetype="street-address" required>
+                <input type="text" class="form-control" name="town" id="town" x-autocompletetype="street-address" value="{{$user->town}}" required>
                 <span class="help-block"><span class="label label-default">例</span>新宿区西新宿1-2-3</span>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="form-group">
                 <label for="building" class="col-sm-2 control-label">マンション名</label>
                 <div class="col-sm-8">
-                <input type="text" class="form-control" name="building" id="building">
+                <input type="text" class="form-control" name="building" id="building" value="{{$user->building}}">
                 <span class="help-block"><span class="label label-default">例</span>新宿中央ビルディング 13階</span>
                 </div>
             </div>
@@ -132,4 +132,9 @@
         <a class="btn btn-link pull-right" href="{{ url('/users') }}">一覧へ</a>
     </form>
 </div>
+@endsection
+
+@section("script")
+<script src="{{ asset('js/ajaxzip2.js') }}"></script>
+<script src="{{ asset('js/select.js') }}"></script>
 @endsection
