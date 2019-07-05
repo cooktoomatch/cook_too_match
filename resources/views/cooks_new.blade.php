@@ -35,6 +35,10 @@
             </select>
             <select name="day" class="day">
             </select>
+            <select name="hour" class="hour">
+            </select>
+            <select name="minute" class="minute">
+            </select>
         </div>
         <div class="form-group">
             <label for="end_time" class="control-label">提供可能終了時間</label>
