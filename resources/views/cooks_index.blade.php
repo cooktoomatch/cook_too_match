@@ -53,19 +53,48 @@
 </div>
 <script>
     function initMap() {
-        var geocoder = new google.maps.Geocoder();
-        const arr = <?php echo $addArr; ?>;
+        const users = <?php echo $users; ?>;
         const currentUser = <?php echo $currentUser; ?>;
 
-        var map = new google.maps.Map(document.getElementById('map'), {
+        const map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
             center: {lat: currentUser.latitude, lng: currentUser.longitude}
         });
 
-        for (let i=0; i<arr.length; i++) {
-            var marker = new google.maps.Marker({
+        
+        users.forEach(user => {
+            const marker = new google.maps.Marker({
                 map: map,
-                position: {lat: arr[i].lat, lng: arr[i].lng}
+                position: {lat: user.latitude, lng: user.longitude},
+                icon: {
+                    url: `storage/user_icon/${user.icon}`,
+                    size: new google.maps.Size(46, 46),
+                    scaledSize: new google.maps.Size(46, 46),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(0, 0),
+                },
+                animation: google.maps.Animation.DROP
+            });
+
+            let cookImages = "";
+            user.cooks.forEach(cook => {
+                cookImages += `<a href="cooks/show/${cook.id}"><img src="storage/cook_image/${cook.image}" class="infoCookImg"></a>`;
+            });
+
+            const info = `<div>
+                          <a href="users/show/${user.id}" class="infoCookName">${user.name}</a>
+                          <p class="infoCookCount">投稿数: ${user.cooks.length}</p>
+                          ${cookImages}
+                          </div>`;
+
+            markerInfo(marker, info);
+        });
+
+        function markerInfo(marker, info) {
+            google.maps.event.addListener(marker, 'mouseover', function (event) {
+                new google.maps.InfoWindow({
+                    content: info
+                }).open(marker.getMap(), marker);
             });
         }
     };
@@ -81,6 +110,19 @@
 <style>
     .navbar {
         margin-bottom: 0;
+    }
+    .infoCookImg {
+        width: 50px;
+        height: 50px;
+        margin-left: 5px;
+    }
+    .infoCookCount {
+        font-size: 14px;
+    }
+    .infoCookName {
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 10px;
     }
 </style>
 <link href="{{ asset('css/cook_list.css') }}" rel="stylesheet">

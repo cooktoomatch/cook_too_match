@@ -28,16 +28,17 @@ class CooksController extends Controller
     {
         $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
         $addArr = [];
-        $users = User::orderBy('created_at', 'asc')->get();
+        $users = User::orderBy('created_at', 'asc')->with('cooks')->get();
         $currentUser = User::find(Auth::user()->id);
-        for ($i = 0; $i < count($users); $i++) {
-            array_push($addArr, array(
-                'address' => $users[$i]->address,
-                'lat' => $users[$i]->latitude,
-                'lng' => $users[$i]->longitude,
-            ));
-        }
-        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'addArr' => json_encode($addArr)]);
+        // for ($i = 0; $i < count($users); $i++) {
+        //     array_push($addArr, array(
+        //         // 'address' => $users[$i]->address,
+        //         'lat' => $users[$i]->latitude,
+        //         'lng' => $users[$i]->longitude,
+        //         'user_icon' => $users[$i]->icon,
+        //     ));
+        // }
+        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'users' => $users]);
     }
 
     public function create()
