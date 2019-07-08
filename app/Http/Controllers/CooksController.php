@@ -17,9 +17,9 @@ class CooksController extends Controller
         $this->middleware('auth');
     }
 
-    public function json()
+    public function json(Request $request)
     {
-        return Comment::all();
+        return Comment::where('cook_id', $request->cook_id)->get();
     }
 
     public function index()
