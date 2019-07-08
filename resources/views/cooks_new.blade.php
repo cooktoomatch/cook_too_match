@@ -38,6 +38,7 @@
             </div>
         </form>
     </div>
+            <textarea name="etc" class="form-control">{{ old('etc') }}</textarea>
 </div>
 @endsection
 
