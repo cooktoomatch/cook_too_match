@@ -55,9 +55,14 @@ class UsersController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'icon' => 'file | image | mimes:jpeg,png',
-            'name' => 'required',
+            'name' => 'required | string',
             'email' => 'required | max:255',
+            'icon' => 'file | image | mimes:jpeg,png',
+            'description' => 'nullable | string',
+            'zip' => 'regex:/\w{4,14}/',
+            'pref' => 'required',
+            'town' => 'required',
+            'building' => 'nullable',
         ]);
 
         if ($validator->fails()) {
