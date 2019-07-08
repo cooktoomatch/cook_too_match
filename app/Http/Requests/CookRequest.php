@@ -29,8 +29,8 @@ class CookRequest extends FormRequest
             'description' => 'required',
             'price'   => 'required',
             'num'   => 'required',
-            'start_time'   => 'required',
-            'end_time'   => 'required',
+            // 'start_time'   => 'required',
+            // 'end_time'   => 'required',
         ];
     }
 }
