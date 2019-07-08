@@ -44,7 +44,6 @@
                 lng: currentUser.longitude
             }
         }
-        debugger;
 
         const map = new google.maps.Map(document.getElementById('map'), {
             zoom: zoom,

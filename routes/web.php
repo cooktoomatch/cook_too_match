@@ -34,11 +34,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/users/update', 'UsersController@update');
     Route::delete('/user/{user}', 'UsersController@destroy');
 
-    // // conversations
+    // // goods
+    Route::post('/goods/store', 'GoodController@store');
+    Route::delete('/good/{good}', 'GoodController@destroy');
+
+    // conversations
     Route::get('/conversations', 'ConversationsController@index');
     Route::post('/conversations/store', 'ConversationsController@store');
 
-    // // messages
+    // messages
     Route::resource(
         'conversations.messages',
         'MessagesController',
