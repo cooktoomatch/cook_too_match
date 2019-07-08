@@ -11,6 +11,7 @@
                         </div>
                         <div class="card-body">
                             <a class="cook_name" href="/cooks/show/{{ $cook->id }}">{{ $cook->name }}</a>
+                            <span class="buy">buy</span>
                             <!-- <p class="card-text">{{ $cook->description }}</p> -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">

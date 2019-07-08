@@ -128,4 +128,5 @@
 
 @section("script")
 <script src="{{ asset('js/good.js') }}"></script>
+<script src="{{ asset('js/buy.js') }}"></script>
 @endsection
