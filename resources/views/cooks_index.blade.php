@@ -6,6 +6,9 @@
 
 @section('content')
 <main role="main">
+
+    <img class="nanase" src="http://imgcc.naver.jp/kaze/mission_anm/USER/20181110/35/3012705/1/500x210x8f173d0eaffc4b90c0c0361b.gif" alt="">
+
     <div class="profile-page sidebar-collapse">
         <section class="text-center">
             <h2 class="title">Let's share the overcooked food !</h2>
@@ -29,7 +32,6 @@
     function initMap() {
         const users = <?php echo $users; ?>;
         const currentUser = <?php echo $currentUser; ?>;
-        debugger;
 
         let zoom = 12;
         let center = {
@@ -52,7 +54,10 @@
         users.forEach(user => {
             const marker = new google.maps.Marker({
                 map: map,
-                position: {lat: user.latitude, lng: user.longitude},
+                position: {
+                    lat: user.latitude,
+                    lng: user.longitude
+                },
                 icon: {
                     url: `storage/user_icon/${user.icon}`,
                     size: new google.maps.Size(46, 46),
@@ -78,7 +83,7 @@
         });
 
         function markerInfo(marker, info) {
-            google.maps.event.addListener(marker, 'mouseover', function (event) {
+            google.maps.event.addListener(marker, 'mouseover', function(event) {
                 new google.maps.InfoWindow({
                     content: info
                 }).open(marker.getMap(), marker);
@@ -91,6 +96,7 @@
 
 @section("script")
 <script src="{{ asset('js/good.js') }}"></script>
+<script src="{{ asset('js/buy.js') }}"></script>
 @endsection
 
 @section('style')
@@ -98,18 +104,31 @@
     .navbar {
         margin-bottom: 0;
     }
+
     .infoCookImg {
         width: 50px;
         height: 50px;
         margin-left: 5px;
     }
+
     .infoCookCount {
         font-size: 14px;
     }
+
     .infoCookName {
         font-weight: bold;
         display: inline-block;
         margin-bottom: 10px;
+    }
+
+    .nanase {
+        display: none;
+        height: 120%;
+        width: 120%;
+        position: fixed;
+        z-index: 100;
+        top: -10%;
+        left: 0%;
     }
 </style>
 <link href="{{ asset('css/cook_list.css') }}" rel="stylesheet">

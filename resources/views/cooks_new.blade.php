@@ -98,20 +98,25 @@
     .submit_btn {
         margin-top: 35px;
     }
+
     .selectWrap {
         box-sizing: border-box;
         padding: 0 0 5px 0;
         height: 49px;
     }
-    .selectWrap.col-4 + .selectWrap.col-4 {
+
+    .selectWrap.col-4+.selectWrap.col-4 {
         padding-left: 5px;
     }
-    .selectWrap.col-6 + .selectWrap.col-6 {
+
+    .selectWrap.col-6+.selectWrap.col-6 {
         padding-left: 5px;
     }
+
     .selectBox {
         height: 44px;
     }
+
     .control-label {
         text-align: left;
         display: block;
@@ -120,6 +125,7 @@
         font-size: 13px;
         margin-top: 26px;
     }
+
     .fileBtn {
         color: #aaa;
         cursor: pointer;
@@ -128,6 +134,7 @@
         box-sizing: border-box;
         padding: 0;
     }
+
     .upImg {
         margin-bottom: 20px;
     }
