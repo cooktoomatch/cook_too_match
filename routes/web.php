@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/users/update', 'UsersController@update');
     Route::delete('/user/{user}', 'UsersController@destroy');
 
-    // // goods
+    // goods
     Route::post('/goods/store', 'GoodController@store');
     Route::delete('/good/{good}', 'GoodController@destroy');
 

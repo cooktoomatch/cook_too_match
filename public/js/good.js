@@ -16,7 +16,7 @@ $('.good-store').on('click', function () {
                                  <button type="submit" class="good-delete btn btn-sm btn-primary btn-outline-primary btn-icon btn-round">
                                  <i class="far fa-thumbs-up"></i>
                                  </button>
-                                 <script src="js/good.js"></script>`
+                                 <script src="/js/good.js"></script>`
                 
 
                 $('.goodBtnArea').html(content)
@@ -43,7 +43,7 @@ $('.good-delete').on('click', function () {
                                  <button type="submit" class="good-store btn btn-sm btn-default btn-outline-default btn-icon btn-round">
                                  <i class="far fa-thumbs-up"></i>
                                  </button>
-                                 <script src="js/good.js"></script>`
+                                 <script src="/js/good.js"></script>`
 
                 $('.goodBtnArea').html(content)
             })

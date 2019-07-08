@@ -4,15 +4,24 @@
     <h2 class="title">Edit</h2>
     <p class="category">投稿の編集</p>
     <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
-        @include('common.errors')
         <form action="{{ url('cooks/update') }}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="form-group input-lg">
-                <input type="text" name="name" value="{{$cook->name}}" class="form-control" placeholder="料理名">
+                @if($errors->has('name'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('name') }}</span class="errors">
+                </div>
+                @endif
+                <input type="text" name="name" value="{{ old('name',$cook->name) }}" class="form-control" placeholder="料理名">
             </div>
             <div class="custom-file">
                 <label for="" class="control-label">サムネイル</label>
+                @if($errors->has('image'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('image') }}</span class="errors">
+                </div>
+                @endif
                 <div id="upArea">
                     @if ($cook->image)
                     <img src="{{asset('/storage/cook_image/'.$cook->image)}}" alt="thumbnail" class="upImg img-raised">
@@ -22,16 +31,36 @@
                 <input id="image" type="file" class="custom-file-input" name="image" placeholder="サムネイル">
             </div>
             <div class="form-group input-lg">
-                <textarea name="description" class="form-control" placeholder="料理の説明">{{$cook->description}}</textarea>
+                @if($errors->has('description'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('description') }}</span class="errors">
+                </div>
+                @endif
+                <textarea name="description" class="form-control" placeholder="料理の説明">{{ old('description',$cook->description) }}</textarea>
             </div>
             <div class="form-group input-lg">
-                <input type="number" name="price" value="{{$cook->price}}" class="form-control" placeholder="料金">
+                @if($errors->has('price'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('price') }}</span class="errors">
+                </div>
+                @endif
+                <input type="number" name="price" value="{{ old('price',$cook->price) }}" class="form-control" placeholder="料金">
             </div>
             <div class="form-group input-lg">
-                <input type="number" name="num" value="{{$cook->num}}" class="form-control" placeholder="提供可能数">
+                @if($errors->has('num'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('num') }}</span class="errors">
+                </div>
+                @endif
+                <input type="number" name="num" value="{{ old('num',$cook->num) }}" class="form-control" placeholder="提供可能数">
             </div>
             <div class="form-group input-lg">
                 <label for="image" class="control-label">提供可能開始時間</label>
+                @if($errors->has('start_time'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('start_time') }}</span class="errors">
+                </div>
+                @endif
                 <div class="d-flex flex-wrap">
                     <div class="selectWrap col-4">
                         <select name="start_year" class="start-year form-control  selectBox">
@@ -57,6 +86,11 @@
             </div>
             <div class="form-group input-lg">
                 <label for="image" class="control-label">提供可能終了時間</label>
+                @if($errors->has('end_time'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('end_time') }}</span class="errors">
+                </div>
+                @endif
                 <div class="d-flex flex-wrap">
                     <div class="selectWrap col-4">
                         <select name="end_year" class="end-year form-control  selectBox">
@@ -81,7 +115,12 @@
                 </div>
             </div>
             <div class="form-group input-lg">
-                <textarea name="etc" class="form-control" placeholder="備考">{{$cook->etc}}</textarea>
+                @if($errors->has('etc'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('etc') }}</span class="errors">
+                </div>
+                @endif
+                <textarea name="etc" class="form-control" placeholder="備考">{{ old('etc',$cook->etc) }}</textarea>
             </div>
             <div class="form-group input-lg">
                 <button type="submit" class="btn btn-primary btn-round btn-block btn-lg submit_btn">更新</button>
@@ -101,6 +140,14 @@
 <style>
     .submit_btn {
         margin-top: 35px;
+    }
+
+    .error-box {
+        text-align: left;
+    }
+
+    .error-box .errors {
+        color: red;
     }
 
     .control-label {
