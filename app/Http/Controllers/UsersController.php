@@ -32,7 +32,18 @@ class UsersController extends Controller
 
     public function show(User $users)
     {
-        return view('users_show', ['user' => $users]);
+        $cooks = $users->cooks;
+
+        $good_all = 0;
+        foreach ($cooks as $cook) {
+            $good_all += $cook->good;
+        }
+
+        return view('users_show', [
+            'user' => $users,
+            'cooks' => $users->cooks,
+            'good_all' => $good_all,
+        ]);
     }
 
     public function edit(User $users)
@@ -42,7 +53,7 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'icon' => 'file | image | mimes:jpeg,png',
             'name' => 'required',
@@ -71,14 +82,14 @@ class UsersController extends Controller
         mb_language("Japanese");
         mb_internal_encoding("UTF-8");
 
-        $address = $prefArray[$request->pref].$request->town.$request->building;
+        $address = $prefArray[$request->pref] . $request->town . $request->building;
         $myKey = "AIzaSyB_wlIFXfpic4yHk5ycglzt35H1akkc_Uo";
 
         $eAddress = urlencode($address);
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$eAddress."+CA&key=".$myKey;
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address=" . $eAddress . "+CA&key=" . $myKey;
 
-        $contents= file_get_contents($url);
-        $jsonData = json_decode($contents,true);
+        $contents = file_get_contents($url);
+        $jsonData = json_decode($contents, true);
 
         $lat = $jsonData["results"][0]["geometry"]["location"]["lat"];
         $lng = $jsonData["results"][0]["geometry"]["location"]["lng"];
