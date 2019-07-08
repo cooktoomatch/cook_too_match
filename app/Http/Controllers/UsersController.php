@@ -111,12 +111,12 @@ class UsersController extends Controller
         $users->address = $address;
         $users->save();
 
-        return redirect('/users');
+        return redirect('/cooks');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('/users');
+        return redirect('/cooks');
     }
 }

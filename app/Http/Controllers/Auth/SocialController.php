@@ -46,7 +46,7 @@ class SocialController extends Controller {
             }  
             $newuser->save();
             Auth::login($newuser);
-            return redirect('/home');
+            return redirect('/cooks');
         }
     }
 }

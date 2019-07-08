@@ -25,12 +25,12 @@ async function comment() {
 
     //contentに足していく。
     comment.data.forEach(element => {
-        content += tag(element.user.name, element.content, element.created_at)
+        content += tag(element.user.name, element.content, element.created_at, element.user.icon)
     });
 
 
     // displayに表示させる
-    $('.commentArea').html(content);
+    $('.msgArea').html(content);
 }
 //関数実行
 
@@ -56,12 +56,12 @@ $('.pyorosiku').on('click', function () {
 
                 const count = res.data.length - 1
 
-                const content = tag(res.data[count].user.name, res.data[count].content, res.data[count].created_at);
+                const content = tag(res.data[count].user.name, res.data[count].content, res.data[count].created_at, res.data[count].user.icon);
 
                 // i(content)
 
                 // $('.display').append(content)
-                $('.commentArea').prepend(content)
+                $('.msgArea').prepend(content)
 
 
                 $('.text').val('')
@@ -76,18 +76,25 @@ $('.pyorosiku').on('click', function () {
 
 //データベースからデータを取得した際にhtmlに組み込むための関数
 //htmlに組み込むタグを変更するにはここを変更する。
-function tag(name, content, time) {
+function tag(name, content, time, icon) {
     // return `<li>
     //         <img src="/storage/user_icon/${val.user_icon}" alt="icon" class="icon rounded-circle img-fluid">
     //         <p class="user_name">${val.user_name}</p>
     //         <p class="content">${val.message.content}</p>
     //         <p class="date">${val.message.created_at}</p>
     //         </li>`;
-    return `<tr>
-            <td class="table-text">
-            <div>${name}</div>
-            <div>${content}</div>
-            <div>${time}</div>
-            </td>
-            </tr>`;
+    // return `<tr>
+    //         <td class="table-text">
+    //         <div>${name}</div>
+    //         <div>${content}</div>
+    //         <div>${time}</div>
+    //         </td>
+    //         </tr>`;
+
+    return `<li>
+            <img src="/storage/user_icon/${icon}" alt="icon" class="icon rounded-circle img-fluid">
+            <p class="user_name">${name}</p>
+            <p class="content">${content}</p>
+            <p class="date">${time}</p>
+            </li>`;
 }
