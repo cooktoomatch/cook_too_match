@@ -10,7 +10,7 @@
                             <p class="price">¥ {{ $cook->price }}</p>
                         </div>
                         <div class="card-body">
-                            <p class="cook_name">{{ $cook->name }}</p>
+                            <a class="cook_name" href="/cooks/show/{{ $cook->id }}">{{ $cook->name }}</a>
                             <!-- <p class="card-text">{{ $cook->description }}</p> -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">

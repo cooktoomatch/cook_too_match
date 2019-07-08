@@ -15,7 +15,7 @@
                 <label for="" class="control-label">サムネイル</label>
                 <div id="upArea">
                     @if ($cook->image)
-                        <img src="{{asset('/storage/cook_image/'.$cook->image)}}" alt="thumbnail" class="upImg img-raised">
+                    <img src="{{asset('/storage/cook_image/'.$cook->image)}}" alt="thumbnail" class="upImg img-raised">
                     @endif
                 </div>
                 <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
@@ -31,10 +31,54 @@
                 <input type="number" name="num" value="{{$cook->num}}" class="form-control" placeholder="提供可能数">
             </div>
             <div class="form-group input-lg">
-                <input type="date" name="start_time" value="{{$cook->start_time}}" class="form-control" placeholder="提供可能開始時間">
+                <label for="image" class="control-label">提供可能開始時間</label>
+                <div class="d-flex flex-wrap">
+                    <div class="selectWrap col-4">
+                        <select name="start_year" class="start-year form-control  selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="start_month" class="start-month form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="start_day" class="start-day form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="start_hour" class="start-hour form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="start_minute" class="start-minute form-control selectBox">
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="form-group input-lg">
-                <input type="date" name="end_time" value="{{$cook->end_time}}" class="form-control" placeholder="提供可能終了時間">
+                <label for="image" class="control-label">提供可能終了時間</label>
+                <div class="d-flex flex-wrap">
+                    <div class="selectWrap col-4">
+                        <select name="end_year" class="end-year form-control  selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="end_month" class="end-month form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="end_day" class="end-day form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="end_hour" class="end-hour form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="end_minute" class="end-minute form-control selectBox">
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="form-group input-lg">
                 <textarea name="etc" class="form-control" placeholder="備考">{{$cook->etc}}</textarea>
@@ -49,7 +93,7 @@
 @endsection
 
 @section("script")
-<!-- <script src="{{ asset('js/date.js') }}"></script> -->
+<script src="{{ asset('js/date.js') }}"></script>
 <script src="{{ asset('js/fileUp.js') }}"></script>
 @endsection
 
@@ -58,6 +102,7 @@
     .submit_btn {
         margin-top: 35px;
     }
+
     .control-label {
         text-align: left;
         display: block;
@@ -66,6 +111,25 @@
         font-size: 13px;
         margin-top: 26px;
     }
+
+    .selectWrap {
+        box-sizing: border-box;
+        padding: 0 0 5px 0;
+        height: 49px;
+    }
+
+    .selectWrap.col-4+.selectWrap.col-4 {
+        padding-left: 5px;
+    }
+
+    .selectWrap.col-6+.selectWrap.col-6 {
+        padding-left: 5px;
+    }
+
+    .selectBox {
+        height: 44px;
+    }
+
     .fileBtn {
         color: #aaa;
         cursor: pointer;
@@ -74,6 +138,7 @@
         box-sizing: border-box;
         padding: 0;
     }
+
     .upImg {
         margin-bottom: 20px;
     }
