@@ -42,6 +42,7 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
             'icon' => 'file | image | mimes:jpeg,png',
             'name' => 'required',

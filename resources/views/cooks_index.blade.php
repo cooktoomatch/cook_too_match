@@ -1,54 +1,55 @@
 @extends('layouts.app')
 
+@section('main')
+<div id="map" style="height: 500px;"></div>
+@endsection
+
 @section('content')
-<div class="card-body">
-    <div class="card-title">
-        <h1>料理一覧</h1>
-        <a class="btn" href="{{ url('/cooks/create') }}">新規投稿</a>
-    </div>
-    @include('common.errors')
-    <div id="map" style="height: 400px;"></div>
+<main role="main">
+<div class="profile-page sidebar-collapse">
+    <section class="text-center">
+        <h2 class="title">Let's share the overcooked food !</h2>
+        <p class="category">つくりすぎた手料理をシェアしよう！</p>
+        <p class="description">あなたの登録した住所の位置情報を元に、お近くで作られた手料理を一覧で表示しております。</p>
+        @include('common.errors')
+    </section>
     @if (count($cooks) > 0)
-    <div class="card-body">
-        <div class="card-body">
-            <table class="table table-striped task-table">
-                <tbody>
-                    @foreach ($cooks as $cook)
-                    <tr>
-                        <td class="table-text">
-                            <div>{{ $cook->name }}</div>
-                        </td>
-                        <td>
-                            <form action="{{ url('cooks/show/'.$cook->id) }}" method="GET">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-primary">詳細</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{ url('cooks/edit/'.$cook->id) }}" method="GET">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-primary">更新</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{ url('cook/'.$cook->id) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-danger">削除</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+    <div class="album py-5">
         <div class="row">
-            <div class="col-md-4 offset-md-4">
-                {{ $cooks->links()}}
+        @foreach ($cooks as $cook)
+            <div class="col-6 col-md-4">
+                <div class="card shadow-sm">
+                    <div class="thumbnail">
+                        <img src="{{ asset('storage/cook_image/'.$cook->image) }}" class="bd-placeholder-img card-img-top" width="100%">
+                        <div class="overlay"></div>
+                        <p class="price">¥ {{ $cook->price }}</p>
+                    </div>
+                    <div class="card-body">
+                        <p class="cook_name">{{ $cook->name }}</p>
+                        <!-- <p class="card-text">{{ $cook->description }}</p> -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <form action="{{ url('cooks/show/'.$cook->id) }}" method="GET">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-sm btn-primary" style="margin-right: 8px;">more</button>
+                                </form>
+                                <form action="{{ url('cooks/edit/'.$cook->id) }}" method="GET">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-sm btn-default btn-outline-default btn-icon btn-round">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <small class="text-muted">{{ $cook->created_at }}</small>
+                        </div>
+                    </div>
+                </div>
             </div>
+            @endforeach
         </div>
     </div>
     @endif
+</main>
 </div>
 <script>
     function initMap() {
@@ -70,4 +71,17 @@
     };
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_wlIFXfpic4yHk5ycglzt35H1akkc_Uo&callback=initMap" type="text/javascript"></script>
+@endsection
+
+@section('script')
+
+@endsection
+
+@section('style')
+<style>
+    .navbar {
+        margin-bottom: 0;
+    }
+</style>
+<link href="{{ asset('css/cook_list.css') }}" rel="stylesheet">
 @endsection

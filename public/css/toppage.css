@@ -16,13 +16,13 @@ a:hover {
 html,
 body {
   height: 100%;
-  /* background-color: #333; */
   background-image: url('/heroimg.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-origin: content-box;
   background-size: cover;
-  background-c
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 body {
@@ -88,6 +88,15 @@ body {
   color: rgba(255, 255, 255, .5);
 }
 
+.copy {
+  color: #fff;
+}
+
+.btn-try {
+    border-radius: 27px;
+    padding: 0.75rem 2.25rem !important;
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -95,6 +104,14 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+.form-control {
+  border-radius: .25rem;
+  background: #fff;
+}
+.form-check .form-check-sign:after,
+.form-check .form-check-sign:before {
+  background: #fff;
 }
 
 @media (min-width: 768px) {

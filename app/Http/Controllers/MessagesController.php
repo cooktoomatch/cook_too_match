@@ -11,18 +11,15 @@ use Auth;
 
 class MessagesController extends Controller
 {
-
-    public function json()
-    {
-        return Message::all();
-    }
+    // public function json(Request $request)
+    // {
+    //     $messages = Message::where('conversation_id', $request->conversation_id);
+    //     return json_encode($messages);
+    // }
 
     public function index(Conversation $conversation)
     {   
         $messages = $conversation->messages;
-
-        // dd($conversation->count());
-
         return view('messages_index', ['messages' => $messages, 'conversation' => $conversation]);
     }
 
@@ -46,9 +43,15 @@ class MessagesController extends Controller
         $message->conversation_id = $request->conversation_id;
         $message->user_id = $request->user_id;
         $message->save();
+
+        $res = array(
+            'message' => $message,
+            'user_icon' => $message->user->icon,
+            'user_name' => $message->user->name
+        );
         // return redirect('/conversations/' . $request->conversation_id . '/messages');
 
-        return $message;
+        return $res;
     }
 
     public function show(Cook $cooks)
