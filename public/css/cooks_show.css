@@ -1,0 +1,42 @@
+.cooks_show_wrapper {
+    width: 100%;
+    font-size: 0;
+}
+.cooks_show_wrapper .leftSide {
+    vertical-align: top;
+    font-size: 1.3em;
+    display: inline-block;
+    width: 48%;
+    box-sizing: border-box;
+    margin-right: 4%;
+}
+.cooks_show_wrapper .rightSide {
+    vertical-align: top;
+    font-size: 14px;
+    display: inline-block;
+    width: 48%;
+    box-sizing: border-box;
+}
+.table {
+    margin-top: 20px;
+}
+.btnArea {
+    display: flex;
+}
+.btnArea form + form {
+    margin-left: 10px;
+}
+.title {
+    padding-top: 0;
+}
+.carousel {
+    margin-top: 30px;
+}
+@media screen and (max-width: 767px) {
+    .cooks_show_wrapper .leftSide {
+        width: 100%;
+    }
+    .cooks_show_wrapper .rightSide {
+        width: 100%;
+    }
+}

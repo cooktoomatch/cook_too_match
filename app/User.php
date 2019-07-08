@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class User extends Authenticatable
 {
@@ -30,5 +30,9 @@ class User extends Authenticatable
 
     public function cooks() {
         return $this->hasMany('App\Cook');
+    }
+
+    public function messages() {
+        return $this->hasMany('App\Message');
     }
 }

@@ -1,69 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.toppage')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-                                <a href="auth/login/facebook" class="btn btn-primary" style="background: #3B5998;">Sign in with Facebook</a>
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+<form class="form-signin" method="POST" action="{{ route('login') }}">
+    {{ csrf_field() }}
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }} input-lg">
+        <label for="email" class="sr-only">メールアドレス</label>
+        <input id="email" type="email" class="form-control first" name="email" value="{{ old('email') }}" placeholder="メールアドレス" required autofocus>
+        @if ($errors->has('email'))
+            <span class="help-block">
+                <strong>{{ $errors->first('email') }}</strong>
+            </span>
+        @endif
     </div>
-</div>
+    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }} input-lg">
+        <label for="password" class="sr-only">パスワード</label>
+        <input id="password" type="password" class="form-control last" name="password" placeholder="パスワード" required>
+        @if ($errors->has('password'))
+            <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+            </span>
+        @endif
+    </div>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+            <span class="form-check-sign"></span>
+            ログイン状態を記憶する
+        </label>
+    </div>
+    <!-- <div class="form-check mb-3">
+        <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> 
+        </label>
+    </div> -->
+    <button class="btn btn-lg btn-success btn-block" type="submit">
+        ログイン
+    </button>
+    <a href="auth/login/facebook" class="btn btn-lg btn-primary btn-block" style="background: #3B5998; border-color: #3B5998 !important;">
+        Facebookでログイン
+    </a>
+    <!-- <a class="btn btn-link" href="{{ route('password.request') }}" style="color: #fff; margin-top: 20px;">
+        パスワードを忘れてしまった方
+    </a> -->
+</form>
 @endsection

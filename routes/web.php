@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get("/jsonMessage", "MessagesController@json");
+// Route::get("/jsonMessage", "MessagesController@json");
 Route::get("/jsonComment", "CooksController@json");
 
 Route::get('auth/login', 'Auth\SocialController@authLogin');
