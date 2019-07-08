@@ -17,27 +17,19 @@ class MessagesController extends Controller
     //     return json_encode($messages);
     // }
 
+    public function json()
+    {
+        return Message::with(['conversation.sender_user', 'conversation.recipient_user'])->first();
+    }
+
     public function index(Conversation $conversation)
-    {   
+    {
         $messages = $conversation->messages;
         return view('messages_index', ['messages' => $messages, 'conversation' => $conversation]);
     }
 
     public function store(MessageRequest $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'content' => 'required',
-        //     'conversation_id' => 'required',
-        //     'user_id' => 'required',
-        // ]);
-
-        // if ($validator->fails()) {
-
-        //     return redirect('/conversations/' . $request->conversation_id . '/messages')
-        //         ->withInput()
-        //         ->withErrors($validator);
-        // }
-
         $message = new Message;
         $message->content = $request->content;
         $message->conversation_id = $request->conversation_id;
