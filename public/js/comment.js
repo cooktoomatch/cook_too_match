@@ -7,9 +7,11 @@ const cook_id = path[3];
 //ページを開いた際に実行される関数
 async function comment() {
 
+    const params = {
+        cook_id: cook_id
+    }
     //jsonMessage(web.phpに新たに追加)からmessageテーブルのデータを取得
-    const comment = await axios.get(`/jsonComment`);
-
+    const comment = await axios.get(`/jsonComment`, {params: params});
     console.log(comment)
 
     let content = ''
@@ -21,7 +23,7 @@ async function comment() {
 
 
     // displayに表示させる
-    $('.display').html(content);
+    $('.commentArea').html(content);
 }
 //関数実行
 
@@ -43,8 +45,11 @@ $('.pyorosiku').on('click', function () {
         await axios.post(`/cooks/show/${cook_id}`, params)
             .then(res => {
                 const content = tag(res.data.content);
+                // const content = tag(res.data);
 
-                $('.display').append(content)
+                // $('.display').append(content)
+                $('.commentArea').append(content)
+
 
                 $('.text').val('')
             })
@@ -59,6 +64,12 @@ $('.pyorosiku').on('click', function () {
 //データベースからデータを取得した際にhtmlに組み込むための関数
 //htmlに組み込むタグを変更するにはここを変更する。
 function tag(value) {
+    // return `<li>
+    //         <img src="/storage/user_icon/${val.user_icon}" alt="icon" class="icon rounded-circle img-fluid">
+    //         <p class="user_name">${val.user_name}</p>
+    //         <p class="content">${val.message.content}</p>
+    //         <p class="date">${val.message.created_at}</p>
+    //         </li>`;
     return `<tr>
             <td class="table-text">
             <div>${value}</div>
