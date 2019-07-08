@@ -15,10 +15,13 @@ class CreateConversationsTable extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sender_user_id')->index();
-            $table->integer('recipient_user_id')->index();
+            $table->unsignedInteger('sender_user_id')->index();
+            $table->unsignedInteger('recipient_user_id')->index();
             $table->unique(['sender_user_id', 'recipient_user_id']);
             $table->timestamps();
+
+            $table->foreign("sender_user_id")->references("id")->on("users")->onDelete('cascade');
+            $table->foreign("recipient_user_id")->references("id")->on("users")->onDelete('cascade');
         });
     }
 

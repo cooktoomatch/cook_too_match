@@ -35,6 +35,7 @@ async function message() {
 //関数実行
 message();
 
+// console.log('hello')
 
 //コメントを
 $('.btn').on('click', function () {
@@ -52,7 +53,7 @@ $('.btn').on('click', function () {
             .then(res => {
                 const content = tag(res.data);
 
-                $('.msgArea').append(content)
+                $('.msgArea').prepend(content)
 
                 $('.form-control').val('')
             })
