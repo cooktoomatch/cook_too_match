@@ -31,7 +31,7 @@ class SocialController extends Controller {
                 $user->save();
             }
             Auth::login($user);
-            return redirect('/home');
+            return redirect('/cooks');
         } else {
             $newuser = new User;
             $newuser->name = $userSocial->getName();

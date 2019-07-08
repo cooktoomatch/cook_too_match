@@ -12,7 +12,9 @@
                 <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="料理名">
             </div>
             <div class="custom-file">
-                <label for="image" class="control-label" placeholder="サムネイル"></label>
+                <label for="" class="control-label">サムネイル</label>
+                <div id="upArea"></div>
+                <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
                 <input id="image" type="file" class="custom-file-input" name="image" placeholder="サムネイル">
             </div>
             <div class="form-group input-lg">
@@ -25,30 +27,54 @@
                 <input type="number" name="num" value="{{ old('num') }}" class="form-control" placeholder="提供可能数">
             </div>
             <div class="form-group input-lg">
-                <p>提供可能開始時間</p>
-                <select name="start_year" class="start-year">
-                </select>
-                <select name="start_month" class="start-month">
-                </select>
-                <select name="start_day" class="start-day">
-                </select>
-                <select name="start_hour" class="start-hour">
-                </select>
-                <select name="start_minute" class="start-minute">
-                </select>
+                <label for="image" class="control-label">提供可能開始時間</label>
+                <div class="d-flex flex-wrap">
+                    <div class="selectWrap col-4">
+                        <select name="start_year" class="start-year form-control  selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="start_month" class="start-month form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="start_day" class="start-day form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="start_hour" class="start-hour form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="start_minute" class="start-minute form-control selectBox">
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="form-group input-lg">
-                <p>提供可能終了時間</p>
-                <select name="end_year" class="end-year">
-                </select>
-                <select name="end_month" class="end-month">
-                </select>
-                <select name="end_day" class="end-day">
-                </select>
-                <select name="end_hour" class="end-hour">
-                </select>
-                <select name="end_minute" class="end-minute">
-                </select>
+                <label for="image" class="control-label">提供可能終了時間</label>
+                <div class="d-flex flex-wrap">
+                    <div class="selectWrap col-4">
+                        <select name="end_year" class="end-year form-control  selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="end_month" class="end-month form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-4">
+                        <select name="end_day" class="end-day form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="end_hour" class="end-hour form-control selectBox">
+                        </select>
+                    </div>
+                    <div class="selectWrap col-6">
+                        <select name="end_minute" class="end-minute form-control selectBox">
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="form-group input-lg">
                 <textarea name="etc" class="form-control" placeholder="備考">{{ old('etc') }}</textarea>
@@ -63,6 +89,7 @@
 
 @section("script")
 <script src="{{ asset('js/date.js') }}"></script>
+<script src="{{ asset('js/fileUp.js') }}"></script>
 @endsection
 
 
@@ -70,6 +97,39 @@
 <style>
     .submit_btn {
         margin-top: 35px;
+    }
+    .selectWrap {
+        box-sizing: border-box;
+        padding: 0 0 5px 0;
+        height: 49px;
+    }
+    .selectWrap.col-4 + .selectWrap.col-4 {
+        padding-left: 5px;
+    }
+    .selectWrap.col-6 + .selectWrap.col-6 {
+        padding-left: 5px;
+    }
+    .selectBox {
+        height: 44px;
+    }
+    .control-label {
+        text-align: left;
+        display: block;
+        box-sizing: border-box;
+        padding-left: 18px;
+        font-size: 13px;
+        margin-top: 26px;
+    }
+    .fileBtn {
+        color: #aaa;
+        cursor: pointer;
+        height: 44px;
+        line-height: 44px;
+        box-sizing: border-box;
+        padding: 0;
+    }
+    .upImg {
+        margin-bottom: 20px;
     }
 </style>
 @endsection

@@ -54,7 +54,7 @@
 <script>
     function initMap() {
         var geocoder = new google.maps.Geocoder();
-        const arr = <?php echo $adArr; ?>;
+        const arr = <?php echo $addArr; ?>;
         const currentUser = <?php echo $currentUser; ?>;
 
         var map = new google.maps.Map(document.getElementById('map'), {
