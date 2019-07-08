@@ -30,9 +30,8 @@
 
 <script>
     function initMap() {
-        debugger;
-        const users = < ? php echo $users; ? > ;
-        const currentUser = < ? php echo $currentUser; ? > ;
+        const users = <?php echo $users; ?>;
+        const currentUser = <?php echo $currentUser; ?>;
 
         let zoom = 12;
         let center = {
