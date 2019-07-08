@@ -16,22 +16,39 @@
             <p class="description">あなたの登録した住所の位置情報を元に、お近くで作られた手料理を一覧で表示しております。</p>
             @include('common.errors')
         </section>
-        <!-- ここから -->
-        @include('layouts.components.cookShow')
-        <!-- ここまで -->
+        @if ($currentUser->address)
+            <!-- ここから -->
+            @include('layouts.components.cookShow')
+            <!-- ここまで -->
+        @else
+        <div class="text-center">
+            <a href="{{ url('users/edit/'.$currentUser->id) }}" class="btn btn-primary btn-round btn-lg">住所を登録する</a>
+        </div>
+        @endif
+    </div>
 </main>
-</div>
+
 <script>
     function initMap() {
-        const users = < ? php echo $users; ? > ;
-        const currentUser = < ? php echo $currentUser; ? > ;
+        const users = <?php echo $users; ?>;
+        const currentUser = <?php echo $currentUser; ?>;
 
-        const map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: {
+        let zoom = 12;
+        let center = {
+            lat: 35.681236,
+            lng: 139.767125
+        }
+        if (currentUser.latitude) {
+            center = {
                 lat: currentUser.latitude,
                 lng: currentUser.longitude
             }
+        }
+        debugger;
+
+        const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: zoom,
+            center: center
         });
 
         users.forEach(user => {
