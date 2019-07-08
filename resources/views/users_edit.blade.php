@@ -15,9 +15,15 @@
             <div class="form-group input-lg">
                 <input type="email" name="email" value="{{$user->email}}" class="form-control" placeholder="メールアドレス">
             </div>
-            <div class="custom-file">
+            <!-- <div class="custom-file">
                 <label for="icon" class="control-label" placeholder="サムネイル"></label>
                 <input id="icon" type="file" class="custom-file-input" name="icon" placeholder="サムネイル">
+            </div> -->
+            <div class="custom-file">
+                <label for="" class="control-label">アイコン</label>
+                <div id="upArea"></div>
+                <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
+                <input id="image" type="file" class="custom-file-input" name="icon" placeholder="アイコン">
             </div>
 
             <div class="form-group input-lg">
@@ -130,6 +136,7 @@
 @section("script")
 <script src="{{ asset('js/ajaxzip2.js') }}"></script>
 <script src="{{ asset('js/select.js') }}"></script>
+<script src="{{ asset('js/fileUp.js') }}"></script>
 @endsection
 
 @section('style')
@@ -139,6 +146,25 @@
     }
     .pref_select {
         height: 44px;
+    }
+    .control-label {
+        text-align: left;
+        display: block;
+        box-sizing: border-box;
+        padding-left: 18px;
+        font-size: 13px;
+        margin-top: 26px;
+    }
+    .fileBtn {
+        color: #aaa;
+        cursor: pointer;
+        height: 44px;
+        line-height: 44px;
+        box-sizing: border-box;
+        padding: 0;
+    }
+    .upImg {
+        margin-bottom: 20px;
     }
 </style>
 @endsection
