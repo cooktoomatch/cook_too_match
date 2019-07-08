@@ -5,29 +5,58 @@
     <h2 class="title">Post your delicious cook!</h2>
     <p class="category">あなたの手料理を投稿しよう！</p>
     <div class="col-lg-6 text-center col-md-8 ml-auto mr-auto">
-        @include('common.errors')
         <form action="{{ url('cooks/store') }}" method="POST" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group input-lg">
+                @if($errors->has('name'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('name') }}</span class="errors">
+                </div>
+                @endif
                 <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="料理名">
             </div>
             <div class="custom-file">
                 <label for="" class="control-label">サムネイル</label>
+                @if($errors->has('image'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('image') }}</span class="errors">
+                </div>
+                @endif
                 <div id="upArea"></div>
                 <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
                 <input id="image" type="file" class="custom-file-input" name="image" placeholder="サムネイル">
             </div>
             <div class="form-group input-lg">
+                @if($errors->has('description'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('description') }}</span class="errors">
+                </div>
+                @endif
                 <textarea name="description" class="form-control" placeholder="料理の説明">{{ old('description') }}</textarea>
             </div>
             <div class="form-group input-lg">
+                @if($errors->has('price'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('price') }}</span class="errors">
+                </div>
+                @endif
                 <input type="number" name="price" value="{{ old('price') }}" class="form-control" placeholder="料金">
             </div>
             <div class="form-group input-lg">
+                @if($errors->has('num'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('num') }}</span class="errors">
+                </div>
+                @endif
                 <input type="number" name="num" value="{{ old('num') }}" class="form-control" placeholder="提供可能数">
             </div>
             <div class="form-group input-lg">
                 <label for="image" class="control-label">提供可能開始時間</label>
+                @if($errors->has('start_time'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('start_time') }}</span class="errors">
+                </div>
+                @endif
                 <div class="d-flex flex-wrap">
                     <div class="selectWrap col-4">
                         <select name="start_year" class="start-year form-control  selectBox">
@@ -53,6 +82,11 @@
             </div>
             <div class="form-group input-lg">
                 <label for="image" class="control-label">提供可能終了時間</label>
+                @if($errors->has('end_time'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('end_time') }}</span class="errors">
+                </div>
+                @endif
                 <div class="d-flex flex-wrap">
                     <div class="selectWrap col-4">
                         <select name="end_year" class="end-year form-control  selectBox">
@@ -77,6 +111,11 @@
                 </div>
             </div>
             <div class="form-group input-lg">
+                @if($errors->has('etc'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('etc') }}</span class="errors">
+                </div>
+                @endif
                 <textarea name="etc" class="form-control" placeholder="備考">{{ old('etc') }}</textarea>
             </div>
             <div class="form-group input-lg">
@@ -97,6 +136,14 @@
 <style>
     .submit_btn {
         margin-top: 35px;
+    }
+
+    .error-box {
+        text-align: left;
+    }
+
+    .error-box .errors {
+        color: red;
     }
 
     .selectWrap {

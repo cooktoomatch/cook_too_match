@@ -60,6 +60,30 @@ class CooksController extends Controller
         $start_time = $request->start_year . '-' . $request->start_month . '-' . $request->start_day . ' ' . $request->start_hour . ':' . $request->start_minute;
         $end_time = $request->end_year . '-' . $request->end_month . '-' . $request->end_day . ' ' . $request->end_hour . ':' . $request->end_minute;
 
+        $requestBox = $request->all();
+
+        $requestBox['start_time'] = $start_time;
+        $requestBox['end_time'] = $end_time;
+
+        // dd($requestBox);
+
+        $rules = [
+            'name'   => 'required | max:255',
+            'image' => 'required | file | image | mimes:jpeg,png',
+            'description' => 'required',
+            'price'   => 'required',
+            'num'   => 'required',
+            'start_time' => 'required | date',
+            'end_time' => 'required | date'
+        ];
+        $messages = [];
+
+        $validator = Validator::make($requestBox, $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect('/cooks/create')->withErrors($validator)->withInput();
+        }
+
         // dd($start_time);
 
         $cooks = new Cook;
@@ -84,13 +108,43 @@ class CooksController extends Controller
         return view('cooks_show', ['cook' => $cooks]);
     }
 
-    public function edit(Cook $cooks)
+    public function edit(Request $request, Cook $cooks)
     {
+        $request->session()->put('cook_id', $cooks->id);
+
         return view('cooks_edit', ['cook' => $cooks]);
     }
 
-    public function update(CookUpdateRequest $request)
+    public function update(Request $request)
     {
+        $start_time = $request->start_year . '-' . $request->start_month . '-' . $request->start_day . ' ' . $request->start_hour . ':' . $request->start_minute;
+        $end_time = $request->end_year . '-' . $request->end_month . '-' . $request->end_day . ' ' . $request->end_hour . ':' . $request->end_minute;
+
+        $requestBox = $request->all();
+
+        $requestBox['start_time'] = $start_time;
+        $requestBox['end_time'] = $end_time;
+
+        // dd($requestBox);
+
+        $rules = [
+            'name'   => 'required | max:255',
+            'image' => 'required | file | image | mimes:jpeg,png',
+            'description' => 'required',
+            'price'   => 'required',
+            'num'   => 'required',
+            'start_time' => 'required | date',
+            'end_time' => 'required | date'
+        ];
+        $messages = [];
+
+        $validator = Validator::make($requestBox, $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect('/cooks/edit/' . $request->session()->pull("cook_id"))->withErrors($validator)->withInput();
+        }
+
+
         $cooks = Cook::find($request->id);
         $cooks->name = $request->name;
         if ($request->file('image')) {
