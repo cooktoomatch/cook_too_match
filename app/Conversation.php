@@ -28,5 +28,13 @@ class Conversation extends Model {
     public function messages() {
         return $this->hasMany('App\Message');
     }
-    
+    // public function sender_user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
+
+    // public function recipient_user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
 }
