@@ -67,7 +67,7 @@ return [
     'not_in'               => 'The selected :attribute is invalid.',
     'numeric'              => 'The :attribute must be a number.',
     'present'              => 'The :attribute field must be present.',
-    'regex'                => 'The :attribute format is invalid.',
+    'regex'                => '郵便番号の形式にセェよ（ ｉ _ ｉ ）',
     'required'             => 'ちゃんと入力せえよ(;｀O´)o [怒]',
     'required_if'          => 'The :attribute field is required when :other is :value.',
     'required_unless'      => 'The :attribute field is required unless :other is in :values.',
