@@ -19,7 +19,7 @@ class CreateCooksTable extends Migration
             $table->string('image')->nullable();
             $table->unsignedInteger('good')->default(0);
             $table->string('description');
-            $table->integer('user_id')->index();
+            $table->unsignedInteger('user_id');
             // $table->unsignedInteger('category_id')->nullable();
             $table->integer('price');
             $table->integer('num');
@@ -27,6 +27,8 @@ class CreateCooksTable extends Migration
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->timestamps();
+
+            $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
         });
     }
 
