@@ -35,7 +35,7 @@ class CooksController extends Controller
                 'lng' => $users[$i]->longitude,
             ));
         }
-        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'adArr' => json_encode($addArr)]);
+        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'addArr' => json_encode($addArr)]);
     }
 
     public function create()
