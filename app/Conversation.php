@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
+<<<<<<< Updated upstream
 class Conversation extends Model {
     public function senderUser() {
         return $this->hasOne('App\User', 'id', 'sender_user_id');
@@ -28,5 +29,13 @@ class Conversation extends Model {
     public function messages() {
         return $this->hasMany('App\Message');
     }
-    
+    // public function sender_user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
+
+    // public function recipient_user()
+    // {
+    //     return $this->belongsTo('App\User');
+    // }
 }

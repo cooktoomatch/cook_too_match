@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card-body">
+    <div class="card-title">
+        <h2>料理の新規登録</h2>
 <div class="profile-page sidebar-collapse">
     <h2 class="title">Post your delicious cook!</h2>
     <p class="category">あなたの手料理を投稿しよう！</p>
@@ -25,10 +28,30 @@
                 <input type="number" name="num" value="{{ old('num') }}" class="form-control" placeholder="提供可能数">
             </div>
             <div class="form-group input-lg">
-                <input type="date" name="start_time" value="{{ old('start_time') }}" class="form-control" placeholder="提供可能開始時間">
+                <p>提供可能開始時間</p>
+                <select name="start_year" class="start-year">
+                </select>
+                <select name="start_month" class="start-month">
+                </select>
+                <select name="start_day" class="start-day">
+                </select>
+                <select name="start_hour" class="start-hour">
+                </select>
+                <select name="start_minute" class="start-minute">
+                </select>
             </div>
             <div class="form-group input-lg">
-                <input type="date" name="end_time" value="{{ old('end_time') }}" class="form-control" placeholder="提供可能終了時間">
+                <p>提供可能終了時間</p>
+                <select name="end_year" class="end-year">
+                </select>
+                <select name="end_month" class="end-month">
+                </select>
+                <select name="end_day" class="end-day">
+                </select>
+                <select name="end_hour" class="end-hour">
+                </select>
+                <select name="end_minute" class="end-minute">
+                </select>
             </div>
             <div class="form-group input-lg">
                 <textarea name="etc" class="form-control" placeholder="備考">{{ old('etc') }}</textarea>
@@ -41,10 +64,16 @@
 </div>
 @endsection
 
+@section("script")
+<script src="{{ asset('js/date.js') }}"></script>
+@endsection
+
+
 @section('style')
 <style>
     .submit_btn {
         margin-top: 35px;
     }
 </style>
+>>>>>>> Stashed changes
 @endsection

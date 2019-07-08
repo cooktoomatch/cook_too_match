@@ -42,28 +42,29 @@ const minutes = {
     1: [15, 30, 45],
     2: [30, 45],
     3: [45],
-    4: ['-']
+    4: ['-'],
+    5: ['-']
 }
 
 //todayMinuteの時間帯により条件を分岐する ➀
-function minute(value) {
+function minute(value, tag) {
     const minute = []
     value.forEach(function (el) {
         minute.push(`<option value="${el}">${el}分</option>`)
     })
-    $('.minute').html(minute)
+    $(tag).html(minute)
 }
 
 // ➀とこれはセット
-function timeSet() {
+function timeSet(tag, count) {
     if (todayMinute >= 0 && todayMinute < 15) {
-        minute(minutes[1])
+        minute(minutes[count], tag)
     } else if (todayMinute >= 15 && todayMinute < 30) {
-        minute(minutes[2])
+        minute(minutes[count + 1], tag)
     } else if (todayMinute >= 30 && todayMinute < 45) {
-        minute(minutes[3])
+        minute(minutes[count + 2], tag)
     } else if (todayMinute >= 45 && todayMinute < 60) {
-        minute(minutes[4])
+        minute(minutes[count + 3], tag)
     }
 }
 
@@ -85,97 +86,200 @@ const todayLastDay = getLastDay(todayYear, todayMonth)
 const spaceDay = getLastDay(todayYear, todayMonth) - todayDay
 
 
-$('.year').html(displayTag(todayYear, '年', 2))
+//start 提供開始時間
 
-$('.month').html(displayTag(todayMonth, '月', 9, 12))
+$('.start-year').html(displayTag(todayYear, '年', 2))
 
-$('.day').html(displayTag(todayDay, '日', 100, todayLastDay, true))
+$('.start-month').html(displayTag(todayMonth, '月', 9, 12))
 
-$('.hour').html(displayTag(todayHour, '時', 14, 24, true))
+$('.start-day').html(displayTag(todayDay, '日', 100, todayLastDay, true))
+
+$('.start-hour').html(displayTag(todayHour, '時', 14, 24, true))
+
+timeSet('.start-minute', 1)
 
 
-$('.year').change(function () {
+$('.start-year').change(function () {
 
-    const year = $('.year' + ' option:selected').val()
-    const month = $('.month' + ' option:selected').val()
-    const day = $('.day' + ' option:selected').val()
-    const hour = $('.hour' + ' option:selected').val()
+    const year = $('.start-year' + ' option:selected').val()
+    const month = $('.start-month' + ' option:selected').val()
+    const day = $('.start-day' + ' option:selected').val()
+    const hour = $('.start-hour' + ' option:selected').val()
 
     if (year == todayYear) {
-        $('.month').html(displayTag(todayMonth, '月', 100, 12, true, true))
+        $('.start-month').html(displayTag(todayMonth, '月', 100, 12, true, true))
 
-        $('.day').html(displayTag(todayDay, '日', 100, todayLastDay, true, true))
+        $('.start-day').html(displayTag(todayDay, '日', 100, todayLastDay, true, true))
 
-        $('.hour').html(displayTag(todayHour, '時', 100, 24, true, true))
+        $('.start-hour').html(displayTag(todayHour, '時', 100, 24, true, true))
 
-        timeSet()
+        timeSet('.start-minute', 1)
 
     } else {
-        $('.month').html(displayTag(1, '月', 100, 12, true, true))
+        $('.start-month').html(displayTag(1, '月', 100, 12, true, true))
 
-        $('.day').html(displayTag(1, '日', 100, todayLastDay, true, true))
+        $('.start-day').html(displayTag(1, '日', 100, todayLastDay, true, true))
 
-        $('.hour').html(displayTag(1, '時', 100, 24, true, true))
+        $('.start-hour').html(displayTag(1, '時', 100, 24, true, true))
 
-        minute(minutes[0])
+        minute(minutes[0], '.start-minute')
     }
 })
 
 
-$('.month').change(function () {
+$('.start-month').change(function () {
 
-    const year = $('.year' + ' option:selected').val()
-    const month = $('.month' + ' option:selected').val()
-    const day = $('.day' + ' option:selected').val()
-    const hour = $('.hour' + ' option:selected').val()
+    const year = $('.start-year' + ' option:selected').val()
+    const month = $('.start-month' + ' option:selected').val()
+    const day = $('.start-day' + ' option:selected').val()
+    const hour = $('.start-hour' + ' option:selected').val()
 
     if (year == todayYear && month == todayMonth) {
 
-        $('.day').html(displayTag(todayDay, '日', 100, todayLastDay, true, true))
+        $('.start-day').html(displayTag(todayDay, '日', 100, todayLastDay, true, true))
 
-        $('.hour').html(displayTag(todayHour, '時', 100, 24, true, true))
+        $('.start-hour').html(displayTag(todayHour, '時', 100, 24, true, true))
 
-        timeSet()
+        timeSet('.start-minute', 1)
     } else {
-        $('.day').html(displayTag(1, '日', 100, todayLastDay, true, true))
+        $('.start-day').html(displayTag(1, '日', 100, todayLastDay, true, true))
 
-        $('.hour').html(displayTag(1, '時', 100, 24, true, true))
+        $('.start-hour').html(displayTag(1, '時', 100, 24, true, true))
 
-        minute(minutes[0])
+        minute(minutes[0], '.start-minute')
     }
 })
 
-$('.day').change(function () {
+$('.start-day').change(function () {
 
-    const year = $('.year' + ' option:selected').val()
-    const month = $('.month' + ' option:selected').val()
-    const day = $('.day' + ' option:selected').val()
-    const hour = $('.hour' + ' option:selected').val()
+    const year = $('.start-year' + ' option:selected').val()
+    const month = $('.start-month' + ' option:selected').val()
+    const day = $('.start-day' + ' option:selected').val()
+    const hour = $('.start-hour' + ' option:selected').val()
 
     if (year == todayYear && month == todayMonth && day == todayDay) {
 
-        $('.hour').html(displayTag(todayHour, '時', 100, 24, true, true))
+        $('.start-hour').html(displayTag(todayHour, '時', 100, 24, true, true))
 
-        timeSet()
+        timeSet('.start-minute', 1)
     } else {
 
-        $('.hour').html(displayTag(1, '時', 100, 24, true, true))
+        $('.start-hour').html(displayTag(1, '時', 100, 24, true, true))
 
-        minute(minutes[0])
+        minute(minutes[0], '.start-minute')
     }
 })
 
-$('.hour').change(function () {
+$('.start-hour').change(function () {
 
-    const year = $('.year' + ' option:selected').val()
-    const month = $('.month' + ' option:selected').val()
-    const day = $('.day' + ' option:selected').val()
-    const hour = $('.hour' + ' option:selected').val()
+    const year = $('.start-year' + ' option:selected').val()
+    const month = $('.start-month' + ' option:selected').val()
+    const day = $('.start-day' + ' option:selected').val()
+    const hour = $('.start-hour' + ' option:selected').val()
 
     if (year == todayYear && month == todayMonth && day == todayDay && hour == todayHour) {
-        timeSet()
+        timeSet('.start-minute', 1)
     } else {
-        minute(minutes[0])
+        minute(minutes[0], '.start-minute')
+    }
+
+})
+
+//end 提供終了時間
+
+$('.end-year').html(displayTag(todayYear, '年', 2))
+
+$('.end-month').html(displayTag(todayMonth, '月', 9, 12))
+
+$('.end-day').html(displayTag(todayDay, '日', 100, todayLastDay, true))
+
+$('.end-hour').html(displayTag(todayHour, '時', 14, 24, true))
+
+timeSet('.end-minute', 2)
+
+
+$('.end-year').change(function () {
+
+    const year = $('.end-year' + ' option:selected').val()
+    const month = $('.end-month' + ' option:selected').val()
+    const day = $('.end-day' + ' option:selected').val()
+    const hour = $('.end-hour' + ' option:selected').val()
+
+    if (year == todayYear) {
+        $('.end-month').html(displayTag(todayMonth, '月', 100, 12, true, true))
+
+        $('.end-day').html(displayTag(todayDay, '日', 100, todayLastDay, true, true))
+
+        $('.end-hour').html(displayTag(todayHour, '時', 100, 24, true, true))
+
+        timeSet('.end-minute', 2)
+
+    } else {
+        $('.end-month').html(displayTag(1, '月', 100, 12, true, true))
+
+        $('.end-day').html(displayTag(1, '日', 100, todayLastDay, true, true))
+
+        $('.end-hour').html(displayTag(1, '時', 100, 24, true, true))
+
+        minute(minutes[0], '.end-minute')
+    }
+})
+
+
+$('.end-month').change(function () {
+
+    const year = $('.end-year' + ' option:selected').val()
+    const month = $('.end-month' + ' option:selected').val()
+    const day = $('.end-day' + ' option:selected').val()
+    const hour = $('.end-hour' + ' option:selected').val()
+
+    if (year == todayYear && month == todayMonth) {
+
+        $('.end-day').html(displayTag(todayDay, '日', 100, todayLastDay, true, true))
+
+        $('.end-hour').html(displayTag(todayHour, '時', 100, 24, true, true))
+
+        timeSet('.end-minute', 2)
+    } else {
+        $('.end-day').html(displayTag(1, '日', 100, todayLastDay, true, true))
+
+        $('.end-hour').html(displayTag(1, '時', 100, 24, true, true))
+
+        minute(minutes[0], '.end-minute')
+    }
+})
+
+$('.end-day').change(function () {
+
+    const year = $('.end-year' + ' option:selected').val()
+    const month = $('.end-month' + ' option:selected').val()
+    const day = $('.end-day' + ' option:selected').val()
+    const hour = $('.end-hour' + ' option:selected').val()
+
+    if (year == todayYear && month == todayMonth && day == todayDay) {
+
+        $('.end-hour').html(displayTag(todayHour, '時', 100, 24, true, true))
+
+        timeSet('.end-minute', 2)
+    } else {
+
+        $('.end-hour').html(displayTag(1, '時', 100, 24, true, true))
+
+        minute(minutes[0], '.end-minute')
+    }
+})
+
+$('.end-hour').change(function () {
+
+    const year = $('.end-year' + ' option:selected').val()
+    const month = $('.end-month' + ' option:selected').val()
+    const day = $('.end-day' + ' option:selected').val()
+    const hour = $('.end-hour' + ' option:selected').val()
+
+    if (year == todayYear && month == todayMonth && day == todayDay && hour == todayHour) {
+        timeSet('.end-minute', 2)
+    } else {
+        minute(minutes[0], '.end-minute')
     }
 
 })
