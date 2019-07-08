@@ -99,7 +99,7 @@
         <!-- <div class="display">
 
     </div> -->
-        <ul class="commentArea"></ul>
+        <ul class="msgArea"></ul>
     </div>
 </div>
 @endsection
