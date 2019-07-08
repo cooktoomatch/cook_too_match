@@ -1,3 +1,7 @@
+function i(value) {
+    console.log(value)
+}
+
 const pathname = location.pathname;
 const path = pathname.split('/');
 
@@ -11,14 +15,17 @@ async function comment() {
         cook_id: cook_id
     }
     //jsonMessage(web.phpに新たに追加)からmessageテーブルのデータを取得
-    const comment = await axios.get(`/jsonComment`, {params: params});
-    console.log(comment)
+    const comment = await axios.get(`/jsonComment`, {
+        params: params
+    });
+
+    // i(comment.data)
 
     let content = ''
 
     //contentに足していく。
     comment.data.forEach(element => {
-        content += tag(element.content)
+        content += tag(element.user.name, element.content, element.created_at)
     });
 
 
@@ -44,11 +51,17 @@ $('.pyorosiku').on('click', function () {
 
         await axios.post(`/cooks/show/${cook_id}`, params)
             .then(res => {
-                const content = tag(res.data.content);
-                // const content = tag(res.data);
+
+                // i(res.data.length)
+
+                const count = res.data.length - 1
+
+                const content = tag(res.data[count].user.name, res.data[count].content, res.data[count].created_at);
+
+                // i(content)
 
                 // $('.display').append(content)
-                $('.commentArea').append(content)
+                $('.commentArea').prepend(content)
 
 
                 $('.text').val('')
@@ -63,7 +76,7 @@ $('.pyorosiku').on('click', function () {
 
 //データベースからデータを取得した際にhtmlに組み込むための関数
 //htmlに組み込むタグを変更するにはここを変更する。
-function tag(value) {
+function tag(name, content, time) {
     // return `<li>
     //         <img src="/storage/user_icon/${val.user_icon}" alt="icon" class="icon rounded-circle img-fluid">
     //         <p class="user_name">${val.user_name}</p>
@@ -72,7 +85,9 @@ function tag(value) {
     //         </li>`;
     return `<tr>
             <td class="table-text">
-            <div>${value}</div>
+            <div>${name}</div>
+            <div>${content}</div>
+            <div>${time}</div>
             </td>
             </tr>`;
 }

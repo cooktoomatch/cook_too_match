@@ -23,28 +23,28 @@
                         <p>投稿</p>
                     </div>
                     <div class="social-description">
-                        <h2>{{ count($user->cooks) }}</h2>
+                        <h2>{{ $good_all }}</h2>
                         <p>グッド</p>
                     </div>
                     <!-- <div class="social-description">
                         <h2>48</h2>
                         <p>Bookmarks</p> -->
-                    </div>
                 </div>
-
-                @if ($user->id === Auth::user()->id)
-                <div class="current_user_option">
-                    <div class="table-text">
-                        <form action="{{ url('users/edit/'.$user->id) }}" method="GET">
-                            {{ csrf_field() }}
-                            <button type="submit" class="btn btn-outline-neutral"><i class="fas fa-user-edit"></i></button>
-                        </form>
-                    </div>
-                </div>
-                @endif
             </div>
+
+            @if ($user->id === Auth::user()->id)
+            <div class="current_user_option">
+                <div class="table-text">
+                    <form action="{{ url('users/edit/'.$user->id) }}" method="GET">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-outline-neutral"><i class="fas fa-user-edit"></i></button>
+                    </form>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
+</div>
 </div>
 @endsection
 
@@ -52,57 +52,22 @@
 <!-- <link href="https://demos.creative-tim.com/now-ui-kit/assets/demo/demo.css" rel="stylesheet"> -->
 <main role="main">
 
-<div class="profile-page sidebar-collapse">
-    <h4 class="title">ABOUT ME</h4>
-    <p class="description">{{ $user->description }}</p>
-    @if ($user->id !== Auth::user()->id)
-    <form action="{{ url('conversations/store') }}" method="POST" class="dmBtn">
-        {{ csrf_field() }}
-        <input type="hidden" name="sender_user_id" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="recipient_user_id" value="{{ $user->id }}">
-        <button type="submit" class="btn btn-lg btn-primary btn-round">{{ $user->name }}さんにメッセージを送る</button>
-    </form>
-    @endif
-    <h4 class="title">{{ $user->name }}さんの料理</h4>
-    @if (count($user->cooks) > 0)
-    <div class="album py-5">
-        <div class="row">
-        @foreach ($user->cooks as $cook)
-        <div class="col-6 col-md-4">
-            <div class="card shadow-sm">
-                <div class="thumbnail">
-                    <img src="{{ asset('storage/cook_image/'.$cook->image) }}" class="bd-placeholder-img card-img-top" width="100%">
-                    <div class="overlay"></div>
-                    <p class="price">¥ {{ $cook->price }}</p>
-                </div>
-                <div class="card-body">
-                    <p class="cook_name">{{ $cook->name }}</p>
-                    <!-- <p class="card-text">{{ $cook->description }}</p> -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <form action="{{ url('cooks/show/'.$cook->id) }}" method="GET">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-sm btn-primary" style="margin-right: 8px;">more</button>
-                            </form>
-                            <form action="{{ url('cooks/edit/'.$cook->id) }}" method="GET">
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-sm btn-default btn-outline-default btn-icon btn-round">
-                                    <i class="far fa-thumbs-up"></i>
-                                </button>
-                            </form>
-                        </div>
-                        <small class="text-muted">{{ $cook->created_at }}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-        
-        </div>
-    </div>
-    @endif
+    <div class="profile-page sidebar-collapse">
+        <h4 class="title">ABOUT ME</h4>
+        <p class="description">{{ $user->description }}</p>
+        @if ($user->id !== Auth::user()->id)
+        <form action="{{ url('conversations/store') }}" method="POST" class="dmBtn">
+            {{ csrf_field() }}
+            <input type="hidden" name="sender_user_id" value="{{ Auth::user()->id }}">
+            <input type="hidden" name="recipient_user_id" value="{{ $user->id }}">
+            <button type="submit" class="btn btn-lg btn-primary btn-round">{{ $user->name }}さんにメッセージを送る</button>
+        </form>
+        @endif
+        <h4 class="title">{{ $user->name }}さんの料理</h4>
 
-    <!-- <h4 class="title">グッドした料理</h4>
+        @include('layouts.components.cookShow')
+
+        <!-- <h4 class="title">グッドした料理</h4>
     @if (count($user->cooks) > 0)
     <div class="album py-5">
         <div class="row">
@@ -140,7 +105,7 @@
         </div>
     </div>
     @endif -->
-</div>
+    </div>
 </main>
 @endsection
 
@@ -149,12 +114,18 @@
     .navbar {
         margin-bottom: 0;
     }
+
     .py-5 {
         padding-top: 0 !important;
     }
+
     .dmBtn {
         text-align: center;
     }
 </style>
 <link href="{{ asset('css/cook_list.css') }}" rel="stylesheet">
+@endsection
+
+@section("script")
+<script src="{{ asset('js/good.js') }}"></script>
 @endsection

@@ -21,7 +21,7 @@ class CooksController extends Controller
 
     public function json(Request $request)
     {
-        return Comment::where('cook_id', $request->cook_id)->get();
+        return Comment::where('cook_id', $request->cook_id)->with('user')->get();
     }
 
     public function index()
@@ -40,12 +40,21 @@ class CooksController extends Controller
         return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'addArr' => json_encode($addArr)]);
     }
 
+    public function good(Request $request)
+    {
+        $cook = Cook::find($request->cook_id);
+        $cook->good = $request->good;
+        $cook->save();
+
+        return $cook;
+    }
+
     public function create()
     {
         return view('cooks_new');
     }
 
-    public function store(CookRequest $request)
+    public function store(Request $request)
     {
         $start_time = $request->start_year . '-' . $request->start_month . '-' . $request->start_day . ' ' . $request->start_hour . ':' . $request->start_minute;
         $end_time = $request->end_year . '-' . $request->end_month . '-' . $request->end_day . ' ' . $request->end_hour . ':' . $request->end_minute;
@@ -112,6 +121,6 @@ class CooksController extends Controller
         $comment->save();
         // return redirect('/conversations/' . $request->conversation_id . '/messages');
 
-        return $comment;
+        return $comment->with('user')->get();
     }
 }

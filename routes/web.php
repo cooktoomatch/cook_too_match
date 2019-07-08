@@ -18,6 +18,7 @@ Route::get('auth/facebook/callback', 'Auth\SocialController@facebookCallback');
 Route::group(['middleware' => 'auth'], function () {
     // cooks
     Route::get('/cooks', 'CooksController@index');
+    Route::post('/cooks', 'CooksController@good');
     Route::get('/cooks/create', 'CooksController@create');
     Route::post('/cooks/store', 'CooksController@store');
     Route::get('/cooks/show/{cooks}', 'CooksController@show');
