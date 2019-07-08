@@ -5,17 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
-<<<<<<< Updated upstream
-class Conversation extends Model {
-    public function senderUser() {
+class Conversation extends Model
+{
+    public function senderUser()
+    {
         return $this->hasOne('App\User', 'id', 'sender_user_id');
     }
 
-    public function recipientUser() {
+    public function recipientUser()
+    {
         return $this->hasOne('App\User', 'id', 'recipient_user_id');
     }
 
-    public function otherUser() {
+    public function otherUser()
+    {
         $user_id = Auth::id();
         $other_key = '';
         if ($user_id === $this->sender_user_id) {
@@ -26,7 +29,8 @@ class Conversation extends Model {
         return $this->hasOne('App\User', 'id', $other_key);
     }
 
-    public function messages() {
+    public function messages()
+    {
         return $this->hasMany('App\Message');
     }
     // public function sender_user()
