@@ -21,7 +21,11 @@
             </div> -->
             <div class="custom-file">
                 <label for="" class="control-label">アイコン</label>
-                <div id="upArea"></div>
+                <div id="upArea">
+                    @if ($user->icon)
+                        <img src="{{asset('/storage/user_icon/'.$user->icon)}}" alt="thumbnail" class="upImg img-raised">
+                    @endif
+                </div>
                 <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
                 <input id="image" type="file" class="custom-file-input" name="icon" placeholder="アイコン">
             </div>
