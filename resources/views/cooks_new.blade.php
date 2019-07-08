@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card-body">
-    <div class="card-title">
-        <h2>料理の新規登録</h2>
 <div class="profile-page sidebar-collapse">
     <h2 class="title">Post your delicious cook!</h2>
     <p class="category">あなたの手料理を投稿しよう！</p>
@@ -61,16 +58,11 @@
             </div>
         </form>
     </div>
-<<<<<<< HEAD
-            <textarea name="etc" class="form-control">{{ old('etc') }}</textarea>
-</div>
-=======
 </div>
 @endsection
 
 @section("script")
 <script src="{{ asset('js/date.js') }}"></script>
->>>>>>> master
 @endsection
 
 
@@ -80,8 +72,4 @@
         margin-top: 35px;
     }
 </style>
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> master
 @endsection
