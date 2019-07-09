@@ -10,6 +10,7 @@ Auth::routes();
 
 // Route::get("/jsonMessage", "MessagesController@json");
 Route::get("/jsonComment", "CooksController@json");
+Route::get("/jsonMap", "CooksController@map");
 
 Route::get('auth/login', 'Auth\SocialController@authLogin');
 Route::get('auth/login/facebook', 'Auth\SocialController@facebookRedirect');
