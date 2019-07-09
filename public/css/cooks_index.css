@@ -74,6 +74,9 @@ footer p {
 .navBtn i {
   font-size: 20px;
 }
+.title.cook_name {
+  color: #222;
+}
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {

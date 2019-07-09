@@ -19,7 +19,7 @@
                             </form>
                             <div class="goodBtnArea-{{ $cook->id }}">
                                 @if (count( $cook->goods->where('user_id', Auth::id()) ) === 0)
-                                    <button type="submit" data-toggle="modal" data-target="#myModal" class="good-store good-store-{{ $cook->id }} btn btn-sm btn-default btn-outline-default btn-icon btn-round">
+                                    <button type="submit" class="good-store good-store-{{ $cook->id }} btn btn-sm btn-default btn-outline-default btn-icon btn-round">
                                         <i class="far fa-thumbs-up"></i>
                                     </button>
                                 @else
