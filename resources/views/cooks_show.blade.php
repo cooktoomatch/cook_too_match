@@ -48,7 +48,7 @@
                         <th>オーナー</th>
                         <td>
                             <a href="{{url('/users/show/'.$cook->user->id)}}">
-                                <img src="{{asset('storage/user_icon/'.$cook->user->icon)}}" alt="owner_icon" width="30" style="border-radius: 15px;">
+                                <img src="{{asset('storage/user_icon/'.$cook->user->icon)}}" alt="owner_icon" width="30" height="30" style="border-radius: 15px;">
                                 <span>{{ $cook->user->name }}</span>
                             </a>
                         </td>

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{{ asset('js/userIcon.js') }}"></script>
 <div class="profile-page sidebar-collapse text-center">
     <h2 class="title">Messages</h2>
     <p class="category">メッセージ履歴</p>
@@ -10,11 +12,16 @@
             @foreach ($conversations as $conversation)
                 <div class="col-6 col-lg-4 msgContent">
                     <a href="{{ url('conversations/'.$conversation->id.'/messages') }}" class="">
-                        <img src="{{asset('storage/user_icon/'.$conversation->otherUser->icon)}}" class="rounded-circle img-fluid" width="140" height="140">
+                        <div class="photo-container">
+                            <img src="{{asset('storage/user_icon/'.$conversation->otherUser->icon)}}" id="userIcon-{{ $conversation->otherUser->id }}" class="rounded-circle img-fluid">
+                        </div>
                         <h3 class="user_name">{{ $conversation->otherUser->name }}</h3>
                         <p class="description">{{ $conversation->messages[0]->content }}</p>
                     </a>
                 </div>
+                <script>
+                    setIcon($('#userIcon-{{ $conversation->otherUser->id }}'));
+                </script>
             @endforeach
         </div>
     </div>
