@@ -7,7 +7,7 @@
                         <div class="thumbnail">
                             <img src="{{ asset('storage/cook_image/'.$cook->image) }}" class="bd-placeholder-img card-img-top" width="100%">
                             <div class="overlay"></div>
-                            <p class="price">¥ {{ $cook->price }}</p>
+                            <p class="price">¥ {{ number_format($cook->price) }}</p>
                         </div>
                         <div class="card-body">
                             <a class="cook_name" href="/cooks/show/{{ $cook->id }}">{{ $cook->name }}</a>
@@ -21,15 +21,15 @@
                                     </form>
                                     <div class="goodBtnArea-{{ $cook->id }}">
                                         @if (count( $cook->goods->where('user_id', Auth::id()) ) === 0)
-                                            <!-- <input class="cook_id" type="hidden" name="cook_id" value="{{ $cook->id }}"> -->
-                                            <button type="submit" class="good-store good-store-{{ $cook->id }} btn btn-sm btn-default btn-outline-default btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
-                                                <i class="far fa-thumbs-up"></i>
-                                            </button>
+                                        <!-- <input class="cook_id" type="hidden" name="cook_id" value="{{ $cook->id }}"> -->
+                                        <button type="submit" class="good-store good-store-{{ $cook->id }} btn btn-sm btn-default btn-outline-default btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </button>
                                         @else
-                                            <!-- <input class="good_id" type="hidden" name="good_id" value="{{ $cook->goods->where('user_id', Auth::id())[0]->id }}"> -->
-                                            <button type="submit" class="good-delete good-delete-{{ $cook->goods->where('user_id', Auth::id())[0]->id }} btn btn-sm btn-primary btn-outline-primary btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
-                                                <i class="far fa-thumbs-up"></i>
-                                            </button>
+                                        <!-- <input class="good_id" type="hidden" name="good_id" value="{{ $cook->goods->where('user_id', Auth::id())[0]->id }}"> -->
+                                        <button type="submit" class="good-delete good-delete-{{ $cook->goods->where('user_id', Auth::id())[0]->id }} btn btn-sm btn-primary btn-outline-primary btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </button>
                                         @endif
                                     </div>
                                 </div>

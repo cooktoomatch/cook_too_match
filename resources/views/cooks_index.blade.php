@@ -17,9 +17,9 @@
             @include('common.errors')
         </section>
         @if ($currentUser->address)
-            <!-- ここから -->
-            @include('layouts.components.cookShow')
-            <!-- ここまで -->
+        <!-- ここから -->
+        @include('layouts.components.cookShow')
+        <!-- ここまで -->
         @else
         <div class="text-center">
             <a href="{{ url('users/edit/'.$currentUser->id) }}" class="btn btn-primary btn-round btn-lg">住所を登録する</a>
@@ -30,8 +30,8 @@
 
 <script>
     function initMap() {
-        const users = <?php echo $users; ?>;
-        const currentUser = <?php echo $currentUser; ?>;
+        const users = < ? php echo $users; ? > ;
+        const currentUser = < ? php echo $currentUser; ? > ;
 
         let zoom = 12;
         let center = {
