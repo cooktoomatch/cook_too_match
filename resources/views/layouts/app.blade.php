@@ -53,7 +53,9 @@
 
                             <a class="dropdown-item" href="{{ url('cooks') }}">ホーム</a>
                             <a class="dropdown-item" href="{{ url('cooks/create') }}">料理を投稿</a>
-                            <a class="dropdown-item" href="{{ url('users') }}">ユーザー一覧</a>
+                            @if(Auth::user()->admin === 1)
+                                <a class="dropdown-item" href="{{ url('users') }}">ユーザー一覧</a>
+                            @endif
                             <a class="dropdown-item" href="{{ url('users/show/'.Auth::user()->id) }}">マイページ</a>
                             <a class="dropdown-item" href="{{ url('conversations') }}">メッセージ</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); 

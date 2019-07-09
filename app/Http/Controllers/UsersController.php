@@ -17,8 +17,13 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::orderBy('created_at', 'asc')->paginate(10);
-        return view('users_index', ['users' => $users]);
+        if (Auth::user()->admin === 1) {
+            $users = User::orderBy('created_at', 'asc')->paginate(10);
+            return view('users_index', ['users' => $users]);
+        } else {
+            return redirect('/cooks');
+        }
+        
     }
 
     public function new()
