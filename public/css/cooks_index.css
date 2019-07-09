@@ -4,7 +4,7 @@ nav {
 nav a {
   color: #222 !important;
 }
-nav i {
+.navbar-nav i {
   font-size:14px !important;
 }
 .current_user_option {
@@ -68,8 +68,36 @@ footer p {
   margin-top: 20px;
 }
 
+.navBtn {
+  border: none;
+}
+.navBtn i {
+  font-size: 20px;
+}
+
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
+  }  
+}
+@media (max-width: 991px) {
+  .navbar-nav {
+    display: inline-block;
+  }
+  .nav-item {
+    display: inline-block;
+  }
+  .dropdown-menu {
+    position: absolute !important;
+  }
+  .navbar-collapse {
+    flex-basis: auto;
+    flex-grow: 0;
+  }
+  .nav-item.dropdown {
+    display: none;
+  }
+  .navbar-nav .nav-link:not(.btn) {
+    padding: .3rem .4rem !important;
   }
 }
