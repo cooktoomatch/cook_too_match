@@ -7,7 +7,7 @@
                 <div class="thumbnail">
                     <img src="{{ asset('storage/cook_image/'.$cook->image) }}" class="bd-placeholder-img card-img-top" width="100%">
                     <div class="overlay"></div>
-                    <p class="price">¥ {{ $cook->price }}</p>
+                    <p class="price">¥ {{ number_format($cook->price) }}</p>
                 </div>
                 <div class="card-body">
                     <a class="cook_name" href="/cooks/show/{{ $cook->id }}">{{ $cook->name }}</a>

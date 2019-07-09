@@ -19,9 +19,9 @@
             @include('common.errors')
         </section>
         @if ($currentUser->address)
-            <!-- ここから -->
-            @include('layouts.components.cookShow')
-            <!-- ここまで -->
+        <!-- ここから -->
+        @include('layouts.components.cookShow')
+        <!-- ここまで -->
         @else
         <div class="text-center">
             <a href="{{ url('users/edit/'.$currentUser->id) }}" class="btn btn-primary btn-round btn-lg">住所を登録する</a>
@@ -29,14 +29,6 @@
         @endif
     </div>
 </main>
-@endsection
-
-@section('php')
-<?php
-function json_safe_encode($data){
-    return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-}
-?>
 @endsection
 
 @section("script")
