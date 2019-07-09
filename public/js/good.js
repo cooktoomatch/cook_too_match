@@ -1,58 +1,72 @@
-function i(value) {
-    console.log(value)
-}
+// function i(value) {
+//     console.log(value)
+// }
 
-$('.good-store').on('click', function () {
+function goodStore(target) {
+    // store時はcook_idで判別
+    const cook_id = target.classList[1].split('-')[2];
+
     async function submit() {
-        const cook_id = $('.cook_id').val();
-
         const params = {
             cook_id: cook_id,
-        }
+        };
 
         await axios.post(`/goods/store`, params)
             .then(res => {
-                const content = `<input class="good_id" type="hidden" name="good_id" value="${res.data.id}">
-                                 <button type="submit" class="good-delete btn btn-sm btn-primary btn-outline-primary btn-icon btn-round">
+                const content = `<button type="submit" class="good-delete good-delete-${res.data.id} btn btn-sm btn-primary btn-outline-primary btn-icon btn-round">
                                  <i class="far fa-thumbs-up"></i>
                                  </button>
-                                 <script src="/js/good.js"></script>`
-                
+                                 <script>
+                                 $('.good-delete-${res.data.id}').on('click', e => {
+                                    goodDelete(e.currentTarget);
+                                 });
+                                 </script>`;
 
-                $('.goodBtnArea').html(content)
+                $(`.goodBtnArea-${cook_id}`).html(content);
             })
             .catch(e => {
-                alert(e.response.data.errors.content)
+                alert(e.response.data.errors.content);
             });
     }
-
     submit();
-});
+};
 
-$('.good-delete').on('click', function () {
+function goodDelete(target) {
+    // delete時はgood_idで判別
+    const good_id = target.classList[1].split('-')[2];
+
     async function submit() {
-        const good_id = $('.good_id').val();
-
         const params = {
             good_id: good_id
-        }
+        };
 
         await axios.delete(`/good/${good_id}`, params)
             .then(res => {
-                const content = `<input class="cook_id" type="hidden" name="cook_id" value="${res.data.cook_id}">
-                                 <button type="submit" class="good-store btn btn-sm btn-default btn-outline-default btn-icon btn-round">
+                const content = `<button type="submit" class="good-store good-store-${res.data.cook_id} btn btn-sm btn-default btn-outline-default btn-icon btn-round">
                                  <i class="far fa-thumbs-up"></i>
                                  </button>
-                                 <script src="/js/good.js"></script>`
+                                 <script>
+                                 $('.good-store-${res.data.cook_id}').on('click', e => {
+                                    goodStore(e.currentTarget);
+                                 });
+                                 </script>`;
 
-                $('.goodBtnArea').html(content)
+                $(`.goodBtnArea-${res.data.cook_id}`).html(content);
             })
             .catch(e => {
-                alert(e.response.data.errors.content)
+                alert(e.response.data.errors.content);
             });
     }
-
     submit();
+};
+
+
+$('.good-store').on('click', e => {
+    goodStore(e.currentTarget);
+});
+
+$('.good-delete').on('click', e => {
+    goodDelete(e.currentTarget);
 });
 
 
