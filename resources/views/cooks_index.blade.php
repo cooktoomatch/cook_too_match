@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('main')
-<div id="map" style="height: 500px;"></div>
+<div id="map" style="height: 500px;">
+    <img class="loader" src="{{ asset('loader.gif') }}">
+</div>
 @endsection
 
 @section('content')
@@ -27,79 +29,29 @@
         @endif
     </div>
 </main>
+@endsection
 
-<script>
-    function initMap() {
-        const users = <?php echo $users; ?>;
-        const currentUser = <?php echo $currentUser; ?>;
-
-        let zoom = 12;
-        let center = {
-            lat: 35.681236,
-            lng: 139.767125
-        }
-        if (currentUser.latitude) {
-            center = {
-                lat: currentUser.latitude,
-                lng: currentUser.longitude
-            }
-        }
-
-        const map = new google.maps.Map(document.getElementById('map'), {
-            zoom: zoom,
-            center: center
-        });
-
-        users.forEach(user => {
-            const marker = new google.maps.Marker({
-                map: map,
-                position: {
-                    lat: user.latitude,
-                    lng: user.longitude
-                },
-                icon: {
-                    url: `storage/user_icon/${user.icon}`,
-                    size: new google.maps.Size(46, 46),
-                    scaledSize: new google.maps.Size(46, 46),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(0, 0),
-                },
-                animation: google.maps.Animation.DROP
-            });
-
-            let cookImages = "";
-            user.cooks.forEach(cook => {
-                cookImages += `<a href="cooks/show/${cook.id}"><img src="storage/cook_image/${cook.image}" class="infoCookImg"></a>`;
-            });
-
-            const info = `<div>
-                          <a href="users/show/${user.id}" class="infoCookName">${user.name}</a>
-                          <p class="infoCookCount">投稿数: ${user.cooks.length}</p>
-                          ${cookImages}
-                          </div>`;
-
-            markerInfo(marker, info);
-        });
-
-        function markerInfo(marker, info) {
-            google.maps.event.addListener(marker, 'mouseover', function(event) {
-                new google.maps.InfoWindow({
-                    content: info
-                }).open(marker.getMap(), marker);
-            });
-        }
-    };
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_wlIFXfpic4yHk5ycglzt35H1akkc_Uo&callback=initMap" type="text/javascript"></script>
+@section('php')
+<?php
+function json_safe_encode($data){
+    return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+}
+?>
 @endsection
 
 @section("script")
 <script src="{{ asset('js/good.js') }}"></script>
 <script src="{{ asset('js/buy.js') }}"></script>
+<script src="{{ asset('js/map.js') }}"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_wlIFXfpic4yHk5ycglzt35H1akkc_Uo&callback=getUsers" type="text/javascript"></script>
 @endsection
 
 @section('style')
 <style>
+    #map {
+        position:relative;
+        border-bottom: solid 1px #ddd;
+    }
     .navbar {
         margin-bottom: 0;
     }
@@ -128,6 +80,15 @@
         z-index: 100;
         top: -10%;
         left: 0%;
+    }
+
+    .loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
     }
 </style>
 <link href="{{ asset('css/cook_list.css') }}" rel="stylesheet">
