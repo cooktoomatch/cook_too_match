@@ -29,16 +29,8 @@ class CooksController extends Controller
         $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
         $addArr = [];
         $users = User::orderBy('created_at', 'asc')->with('cooks')->get();
-        $currentUser = User::find(Auth::user()->id);
-        // for ($i = 0; $i < count($users); $i++) {
-        //     array_push($addArr, array(
-        //         // 'address' => $users[$i]->address,
-        //         'lat' => $users[$i]->latitude,
-        //         'lng' => $users[$i]->longitude,
-        //         'user_icon' => $users[$i]->icon,
-        //     ));
-        // }
-        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => json_encode($currentUser), 'users' => $users]);
+        $currentUser = Auth::user();
+        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => $currentUser, 'users' => $users]);
     }
 
     public function good(Request $request)

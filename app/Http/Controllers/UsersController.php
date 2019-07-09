@@ -36,7 +36,7 @@ class UsersController extends Controller
 
         $good_all = 0;
         foreach ($cooks as $cook) {
-            $good_all += $cook->good;
+            $good_all += count($cook->goods);
         }
 
         return view('users_show', [
@@ -116,12 +116,12 @@ class UsersController extends Controller
         $users->address = $address;
         $users->save();
 
-        return redirect('/users');
+        return redirect('/cooks');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('/users');
+        return redirect('/cooks');
     }
 }

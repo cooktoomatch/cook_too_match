@@ -19,12 +19,19 @@
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-sm btn-primary" style="margin-right: 8px;">more</button>
                                     </form>
-                                    <!-- <form action="{{ url('cooks/edit/'.$cook->id) }}" method="GET">
-                                        {{ csrf_field() }} -->
-                                    <button type="submit" class="good btn btn-sm btn-default btn-outline-default btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
-                                        <i class="far fa-thumbs-up"></i>
-                                    </button>
-                                    <!-- </form> -->
+                                    <div class="goodBtnArea-{{ $cook->id }}">
+                                        @if (count( $cook->goods->where('user_id', Auth::id()) ) === 0)
+                                            <!-- <input class="cook_id" type="hidden" name="cook_id" value="{{ $cook->id }}"> -->
+                                            <button type="submit" class="good-store good-store-{{ $cook->id }} btn btn-sm btn-default btn-outline-default btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
+                                                <i class="far fa-thumbs-up"></i>
+                                            </button>
+                                        @else
+                                            <!-- <input class="good_id" type="hidden" name="good_id" value="{{ $cook->goods->where('user_id', Auth::id())[0]->id }}"> -->
+                                            <button type="submit" class="good-delete good-delete-{{ $cook->goods->where('user_id', Auth::id())[0]->id }} btn btn-sm btn-primary btn-outline-primary btn-icon btn-round btn-{{ $cook->id }} {{ $cook->good }}">
+                                                <i class="far fa-thumbs-up"></i>
+                                            </button>
+                                        @endif
+                                    </div>
                                 </div>
                                 <small class="text-muted">{{ $cook->created_at }}</small>
                             </div>
