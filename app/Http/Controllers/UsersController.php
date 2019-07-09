@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 use Validator;
 use Auth;
@@ -46,8 +47,10 @@ class UsersController extends Controller
         ]);
     }
 
-    public function edit(User $users)
+    public function edit(User $users, Request $request)
     {
+        $request->session()->put('user_id', $users->id);
+
         return view('users_edit', ['user' => $users]);
     }
 
@@ -103,6 +106,9 @@ class UsersController extends Controller
         $users->name = $request->name;
         $users->email = $request->email;
         if ($request->file('icon')) {
+            if ($users->image != basename($request->file('icon'))) {
+                Storage::disk('local')->delete('public/user_icon/' . $users->icon);
+            }
             $filename = $request->file('icon')->store('public/user_icon');
             $users->icon = basename($filename);
         }
@@ -116,7 +122,7 @@ class UsersController extends Controller
         $users->address = $address;
         $users->save();
 
-        return redirect('/cooks');
+        return redirect('/users/show/' . $request->session()->pull("user_id"));
     }
 
     public function destroy(User $user)

@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <th>金額</th>
-                        <td>{{ $cook->price }}円</td>
+                        <td>{{ number_format($cook->price) }}円</td>
                     </tr>
                     <tr>
                         <th>提供可能数</th>

@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\CookRequest;
 use App\Http\Requests\CookUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Cook;
 use App\User;
 use App\Comment;
 use Validator;
 use Auth;
+
 
 class CooksController extends Controller
 {
@@ -126,7 +128,7 @@ class CooksController extends Controller
 
         $rules = [
             'name'   => 'required | max:255',
-            'image' => 'required | file | image | mimes:jpeg,png',
+            'image' => 'file | image | mimes:jpeg,png',
             'description' => 'required',
             'price'   => 'required',
             'num'   => 'required',
@@ -142,19 +144,24 @@ class CooksController extends Controller
         }
 
 
+
         $cooks = Cook::find($request->id);
         $cooks->name = $request->name;
         if ($request->file('image')) {
+            if ($cooks->image != basename($request->file('image'))) {
+                Storage::disk('local')->delete('public/cook_image/' . $cooks->image);
+            }
             $filename = $request->file('image')->store('public/cook_image');
             $cooks->image = basename($filename);
         }
+
         $cooks->description = $request->description;
         $cooks->price = $request->price;
         $cooks->etc = $request->etc;
         $cooks->user_id = Auth::user()->id;
         $cooks->num = $request->num;
-        $cooks->start_time = $request->start_time;
-        $cooks->end_time = $request->end_time;
+        $cooks->start_time = $start_time;
+        $cooks->end_time = $end_time;
         $cooks->save();
         return redirect('/cooks');
     }
