@@ -26,6 +26,11 @@ class CooksController extends Controller
         return Comment::where('cook_id', $request->cook_id)->with('user')->get();
     }
 
+    public function map()
+    {
+        return User::with('cooks')->get();
+    }
+
     public function index()
     {
         $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
