@@ -75,19 +75,21 @@
                     </tr>
                 </tbody>
             </table>
-            @if (Auth::id() === $cook->user_id)
             <div class="btnArea">
-                <form action="{{ url('cooks/edit/'.$cook->id) }}" method="GET">
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-outline-success">編集 <i class="far fa-edit"></i></button>
-                </form>
-                <form action="{{ url('cook/'.$cook->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <button type="submit" class="btn btn-outline-primary">削除 <i class="far fa-trash-alt"></i></button>
-                </form>
+                @if (Auth::id() === $cook->user_id)
+                    <form action="{{ url('cooks/edit/'.$cook->id) }}" method="GET">
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-outline-success">編集 <i class="far fa-edit"></i></button>
+                    </form>
+                    <form action="{{ url('cook/'.$cook->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button type="submit" class="btn btn-outline-primary">削除 <i class="far fa-trash-alt"></i></button>
+                    </form>
+                @else
+                    <button id="purchase" class="btn btn-lg btn-outline-primary btn-round col-12">購入</button>
+                @endif
             </div>
-            @endif
         </div>
         <div class="form-group">
             <input type="hidden" value="{{ Auth::id() }}" class="user_id">
@@ -106,6 +108,8 @@
 
 @section("script")
 <script src="{{ asset('js/comment.js') }}" defer></script>
+<!-- <script src="{{ asset('js/purchase.js') }}" defer></script> -->
+<script>
 @endsection
 
 @section("style")
