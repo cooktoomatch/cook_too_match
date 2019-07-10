@@ -23,11 +23,8 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Cook too match!</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExample07">
+            <div class="collapse navbar-collapse show" id="navbarsExample07">
                 <ul class="navbar-nav mr-auto" style="margin: 0 0 0 auto !important;">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('cooks/') }}"><i class="fas fa-home"></i></a>
@@ -41,13 +38,24 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('conversations') }}"><i class="fas fa-envelope"></i></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                                                    document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
 
                             <a class="dropdown-item" href="{{ url('cooks') }}">ホーム</a>
                             <a class="dropdown-item" href="{{ url('cooks/create') }}">料理を投稿</a>
-                            <a class="dropdown-item" href="{{ url('users') }}">ユーザー一覧</a>
+                            @if(Auth::user()->admin === 1)
+                                <a class="dropdown-item" href="{{ url('users') }}">ユーザー一覧</a>
+                            @endif
                             <a class="dropdown-item" href="{{ url('users/show/'.Auth::user()->id) }}">マイページ</a>
                             <a class="dropdown-item" href="{{ url('conversations') }}">メッセージ</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); 
