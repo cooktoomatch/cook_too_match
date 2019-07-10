@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cook extends Model {
-    public function user() {
+class Cook extends Model
+{
+    public function user()
+    {
         return $this->belongsTo('App\User');
     }
 
@@ -27,6 +29,10 @@ class Cook extends Model {
         $distance = sqrt($distance);
 
         return $distance;
+
+    public function image()
+    {
+        return $this->hasOne('App\Image');
     }
 }
 

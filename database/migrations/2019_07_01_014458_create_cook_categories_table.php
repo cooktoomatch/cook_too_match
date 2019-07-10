@@ -16,10 +16,7 @@ class CreateCookCategoriesTable extends Migration
         Schema::create('cook_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('cook_id');
             $table->timestamps();
-
-            $table->foreign("cook_id")->references("id")->on("cooks")->onDelete('cascade');
         });
     }
 

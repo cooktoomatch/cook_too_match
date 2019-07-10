@@ -25,7 +25,11 @@
             @endforeach
         </div>
     </div>
+
+    @else
+    <div>ないよ</div>
     @endif
+
 </div>
 @endsection
 
@@ -34,25 +38,29 @@
     .msgContent {
         margin-bottom: 30px;
     }
+
     .msgContent a {
         text-decoration: none;
         color: #2c2c2c;
     }
+
     .msgContent:hover img {
-        box-shadow: 0 10px 25px 0 rgba(0,0,0,.3);
+        box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .3);
         transition: 0.3s ease-out;
     }
+
     .msgContent:hover a {
         color: #f96332;
         transition: 0.3s ease-out;
     }
+
     .profile-page .title {
         margin-top: 0;
     }
+
     .user_name {
         font-weight: bold;
         margin: 0;
     }
 </style>
 @endsection
-    
