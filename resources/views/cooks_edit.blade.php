@@ -24,7 +24,7 @@
                 @endif
                 <div id="upArea">
                     @if ($cook->image)
-                    <img src="{{asset('/storage/cook_image/'.$cook->image)}}" alt="thumbnail" class="upImg img-raised">
+                    <img src="{{asset('/storage/cook_image/'.$cook->image->image)}}" alt="thumbnail" class="upImg img-raised">
                     @endif
                 </div>
                 <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>

@@ -19,7 +19,10 @@
         </div>
     </div>
 
+    @else
+    <div>ないよ</div>
     @endif
+
 </div>
 @endsection
 
