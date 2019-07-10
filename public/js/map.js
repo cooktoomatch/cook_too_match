@@ -95,9 +95,9 @@ function setGeo() {
 const geoInit = async position => {
     let lat = position.coords.latitude;
     let lng = position.coords.longitude;
-
+    
     initMap(lat, lng); // Map起動
-
+    
     await getCooks(lat, lng) // cooks取得
         .then(() => {
             users.forEach(user => {
@@ -159,8 +159,8 @@ function initMap(lat, lng) {
         let cookImages = "";
         user.cooks.forEach(cook => {
             cookImages += `<a href="cooks/show/${cook.id}">
-                            <img src="storage/cook_image/${cook.image.image}" class="infoCookImg">
-                            </a>`;
+                           <img src="storage/cook_image/${cook.images[0].image}" class="infoCookImg">
+                           </a>`;
         });
 
         const info = `<div>

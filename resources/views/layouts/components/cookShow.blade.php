@@ -5,8 +5,8 @@
         <div class="col-6 col-md-4">
             <div class="card shadow-sm">
                 <div class="thumbnail">
-                    @if(isset($cook->image->image))
-                    <img src="{{ asset('storage/cook_image/'.$cook->image->image) }}" class="bd-placeholder-img card-img-top" width="100%">
+                    @if(count($cook->images) !== 0)
+                    <img src="{{ asset('storage/cook_image/'.$cook->images->first()->image) }}" class="bd-placeholder-img card-img-top" width="100%">
                     @endif
                     <div class="overlay"></div>
                     <p class="price">¥ {{ number_format($cook->price) }}</p>
@@ -47,4 +47,5 @@
         @endforeach
     </div>
 </div>
+<script src="{{ asset('js/good.js') }}"></script>
 @endif

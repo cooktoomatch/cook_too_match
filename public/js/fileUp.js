@@ -2,35 +2,58 @@ function i(value) {
     console.log(value)
 }
 
-$('#image-file-1').change(function (e) {
-    let file = e.target.files[0];
-    const count = Number($('#image-file-1')[0].id.split('-')[2]) + 1;
+// let count = 1;
+function setFile(c) {
+    let count = 1;
 
-    const reader = new FileReader();
-    if (file.type.indexOf("image") < 0) {
-        alert("画像ファイルを指定してください。");
-        return false;
+    if (c !== 1) {
+        count = Number($(`#image-file-${c}`)[0].id.split('-')[2]);
+        // debugger;
     }
+    
+    // debugger;
+    $(`#image-file-${count}`).change(function (e) {
+        let file = e.target.files[0];
 
-    reader.onload = (function (file) {
-        return function (e) {
-            $("#upArea-1").append("<img class='upImg-1 img-raised'>");
-            $(".upImg-1").attr("src", e.target.result);
-            $(".upImg-1").attr("title", file.name);
-        };
-    })(file);
+        const reader = new FileReader();
+        if (file.type.indexOf("image") < 0) {
+            alert("画像ファイルを指定してください。");
+            return false;
+        }
 
-    reader.readAsDataURL(file);
+        reader.onload = (function (file) {
+            return function (e) {
+                // debugger;
+                $(`#upArea-${count}`).append(`<img class='upImg upImg-${count} img-raised'>`);
+                $(`.upImg-${count}`).attr("src", e.target.result);
+                $(`.upImg-${count}`).attr("title", file.name);
 
-    const fileGroup = `<div class="fileGroup-${count}">
-                       <div id="upArea-${count}"></div>
-                       <div class="fileBtn form-control form-file" onClick="$('.image-file-${count}').click();">ファイルを選択</div>
-                       <input id="image-file-${count}" type="file" class="custom-file-input" name="image-${count}" placeholder="サムネイル">
-                       </div>`;
+                $(`#file-btn-${count}`).css('display', 'none');
 
-    $('#fileArea').append(fileGroup);
-});
+                count++;
 
+                if (count === 4) return;
+
+                const fileGroup = `<div class="fileGroup-${count}">
+                                   <div id="upArea-${count}"></div>
+                                   <div id="file-btn-${count}" class="fileBtn form-control form-file" onClick="$('#image-file-${count}').click();">追加でファイルを選択</div>
+                                   <input id="image-file-${count}" type="file" class="custom-file-input" name="image_${count}" placeholder="サムネイル" style="display: none;">
+                                   </div>`;
+
+                
+                $('#fileArea').append(fileGroup);
+
+                
+                // debugger;
+                setFile(count);
+            };
+        })(file);
+
+        reader.readAsDataURL(file);
+    });
+};
+
+setFile(1);
 // var count
 
 // $('.form-file').on('click', function (e) {

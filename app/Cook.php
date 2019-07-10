@@ -31,9 +31,9 @@ class Cook extends Model
         return $distance;
     }
 
-    public function image()
+    public function images()
     {
-        return $this->hasOne('App\Image');
+        return $this->hasMany('App\Image');
     }
 }
 
