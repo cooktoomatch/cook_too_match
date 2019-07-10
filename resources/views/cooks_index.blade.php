@@ -8,9 +8,6 @@
 
 @section('content')
 <main role="main">
-
-    <img class="nanase" src="http://imgcc.naver.jp/kaze/mission_anm/USER/20181110/35/3012705/1/500x210x8f173d0eaffc4b90c0c0361b.gif" alt="">
-
     <div class="profile-page sidebar-collapse">
         <section class="text-center">
             <h2 class="title">Let's share the overcooked food !</h2>

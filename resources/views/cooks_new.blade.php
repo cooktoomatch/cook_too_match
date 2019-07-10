@@ -22,9 +22,13 @@
                     <span class="errors">※{{ $errors->first('image') }}</span class="errors">
                 </div>
                 @endif
-                <div id="upArea"></div>
-                <!-- <div id="form-file" class="fileBtn-1 form-control form-file">ファイルを選択</div> -->
-                <input type="file" class="file custom-file-input file-1" name="image" placeholder="サムネイル">
+                <div id="fileArea">
+                    <div class="fileGroup-1">
+                        <div id="upArea-1"></div>
+                        <div class="fileBtn form-control form-file" onClick="$('.image-file-1').click();">ファイルを選択</div>
+                        <input id="image-file-1" type="file" class="file custom-file-input file-1" name="image-1" placeholder="サムネイル">
+                    </div>
+                </div>
             </div>
             <div class="form-group input-lg">
                 @if($errors->has('description'))
