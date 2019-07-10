@@ -13,6 +13,12 @@
                 </div>
                 <div class="card-body">
                     <a class="title cook_name" href="/cooks/show/{{ $cook->id }}">{{ $cook->name }}</a>
+                    <div>
+                        <i class="fas fa-road"></i> <span class="distance-{{ $cook->id }}"></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-walking"></i> <span class="duration-{{ $cook->id }}"></span>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <form action="{{ url('cooks/show/'.$cook->id) }}" method="GET">

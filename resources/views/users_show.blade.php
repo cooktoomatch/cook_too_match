@@ -13,7 +13,6 @@
 
                 <div class="photo-container">
                     <img src="{{ asset('storage/user_icon/' . $user->icon) }}" alt="user_icon" width="123" class="rounded-circle img-raised">
-                    <!-- <img src="../assets/img/ryan.jpg" alt=""> -->
                 </div>
 
                 <h3 class="title">{{ $user->name }}</h3>
@@ -129,4 +128,8 @@
 @section("script")
 <script src="{{ asset('js/good.js') }}"></script>
 <script src="{{ asset('js/buy.js') }}"></script>
+<script src="{{ asset('js/userIcon.js') }}"></script>
+<script>
+    setIcon($('.photo-container img'));
+</script>
 @endsection
