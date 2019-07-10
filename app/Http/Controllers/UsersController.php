@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+use App\Cook;
 use Validator;
 use Auth;
 
@@ -23,7 +24,6 @@ class UsersController extends Controller
         } else {
             return redirect('/cooks');
         }
-        
     }
 
     public function new()
@@ -61,7 +61,6 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required | string',
             'email' => 'required | max:255',

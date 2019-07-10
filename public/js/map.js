@@ -2,8 +2,17 @@ function c(v) {
     console.log(v);
 };
 
+
 const DISTANCE = 1000;
 const TRAVEL_MODEL = 'WALKING';
+
+var isset = function (data) {
+    if (data === "" || data === null || data === undefined) {
+        return false;
+    } else {
+        return true;
+    }
+};
 
 let users;
 
@@ -28,6 +37,8 @@ async function getCooks(lat, lng) {
     await axios.get(`/jsonCooks`, {params: params})
         .then(res => {
             renderCooks(res.data);
+            // c(users.cooks[0].image.image)
+            setGeo();
         })
         .catch(e => {
             alert(e.response.data.errors.content);
@@ -109,7 +120,7 @@ function initMap(lat, lng) {
         lat: lat,
         lng: lng
     };
-    
+
     // map生成
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: zoom,
@@ -145,8 +156,11 @@ function initMap(lat, lng) {
 
         let cookImages = "";
         user.cooks.forEach(cook => {
+
+            // c(cook.image.image)
+
             cookImages += `<a href="cooks/show/${cook.id}">
-                            <img src="storage/cook_image/${cook.image}" class="infoCookImg">
+                            <img src="storage/cook_image/${cook.image.image}" class="infoCookImg">
                             </a>`;
         });
 
