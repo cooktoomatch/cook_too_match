@@ -4,7 +4,9 @@
 <div class="profile-page sidebar-collapse text-center">
     <h2 class="title">Message for ...</h2>
     <a href="{{ url('users/show/'.$conversation->otherUser->id) }}" class="userLink">
-        <img src="{{asset('storage/user_icon/'.$conversation->otherUser->icon)}}" class="rounded-circle img-fluid" width="80" height="80">
+        <div class="photo-container">
+            <img src="{{asset('storage/user_icon/'.$conversation->otherUser->icon)}}" id="userIcon" class="rounded-circle img-fluid">
+        </div>
         <p class="category">{{ $conversation->otherUser->name }}</p>
     </a>
     @include('common.errors')
@@ -37,6 +39,10 @@
 
 @section("script")
 <script src="{{ asset('js/message.js') }}"></script>
+<script src="{{ asset('js/userIcon.js') }}"></script>
+<script>
+    setIcon($('#userIcon'));
+</script>
 @endsection
 
 @section('style')

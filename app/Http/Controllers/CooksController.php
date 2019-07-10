@@ -32,13 +32,40 @@ class CooksController extends Controller
         return User::with('cooks.image')->get();
     }
 
+    public function get_cooks(Request $request)
+    {    
+        $cooks = Cook::all();
+
+        foreach ($cooks as $cook) {
+            $lat = $request->lat;
+            $lng = $request->lng;
+            
+            $cook->distance = $cook->set_distance($lat, $lng);
+        }
+
+        $sortedCooks = $cooks->sortBy('distance');
+
+        return view('layouts/components/cookShow', ['cooks' => $sortedCooks]);
+    }
+
     public function index()
     {
-        $cooks = Cook::orderBy('created_at', 'asc')->paginate(10);
-        $addArr = [];
         $users = User::orderBy('created_at', 'asc')->with('cooks')->get();
         $currentUser = Auth::user();
-        return view('cooks_index', ['cooks' => $cooks, 'currentUser' => $currentUser, 'users' => $users]);
+        $cooks = Cook::all();
+
+        // distanceを追加
+        foreach ($cooks as $cook) {
+            $lat = $currentUser->latitude ? $currentUser->latitude : 35;
+            $lng = $currentUser->longitude ? $currentUser->longitude : 135;
+            
+            $cook->distance = $cook->set_distance($lat, $lng);
+        }
+
+        // distanceでsort
+        $sortedCooks = $cooks->sortBy('distance');
+
+        return view('cooks_index', ['cooks' => $sortedCooks, 'currentUser' => $currentUser, 'users' => $users]);
     }
 
     public function good(Request $request)

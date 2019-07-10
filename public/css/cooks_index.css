@@ -78,6 +78,16 @@ footer p {
   color: #222;
 }
 
+/* user icon 用 */
+.photo-container {
+  position: relative;
+}
+
+.photo-container img {
+  max-width: none;
+  display: none;
+}
+
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
