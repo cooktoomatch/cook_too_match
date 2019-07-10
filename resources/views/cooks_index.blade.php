@@ -20,7 +20,9 @@
         </section>
         @if ($currentUser->address)
         <!-- ここから -->
-        @include('layouts.components.cookShow')
+        <div id="cooksArea">
+            @include('layouts.components.cookShow')
+        </div>
         <!-- ここまで -->
         @else
         <div class="text-center">
