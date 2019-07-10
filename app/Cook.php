@@ -29,6 +29,7 @@ class Cook extends Model
         $distance = sqrt($distance);
 
         return $distance;
+    }
 
     public function image()
     {
