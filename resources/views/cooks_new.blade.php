@@ -23,8 +23,8 @@
                 </div>
                 @endif
                 <div id="upArea"></div>
-                <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
-                <input id="image" type="file" class="custom-file-input" name="image" placeholder="サムネイル">
+                <!-- <div id="form-file" class="fileBtn-1 form-control form-file">ファイルを選択</div> -->
+                <input type="file" class="file custom-file-input file-1" name="image" placeholder="サムネイル">
             </div>
             <div class="form-group input-lg">
                 @if($errors->has('description'))
@@ -33,6 +33,19 @@
                 </div>
                 @endif
                 <textarea name="description" class="form-control" placeholder="料理の説明">{{ old('description') }}</textarea>
+            </div>
+            <div class="form-group input-lg">
+                @if($errors->has('category'))
+                <div class="error-box">
+                    <span class="errors">※{{ $errors->first('category') }}</span class="errors">
+                </div>
+                @endif
+                <select name="category" class="form-control  selectBox">
+                    <option value="">カテゴリー</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group input-lg">
                 @if($errors->has('price'))
@@ -134,6 +147,10 @@
 
 @section('style')
 <style>
+    #form-file {
+        cursor: pointer;
+    }
+
     .submit_btn {
         margin-top: 35px;
     }
@@ -151,6 +168,10 @@
         padding: 0 0 5px 0;
         height: 49px;
     }
+
+    /* .file {
+        display: none;
+    } */
 
     .selectWrap.col-4+.selectWrap.col-4 {
         padding-left: 5px;

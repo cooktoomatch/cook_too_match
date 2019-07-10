@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
+use App\Cook;
 use Validator;
 use Auth;
 
@@ -49,6 +50,26 @@ class UsersController extends Controller
 
     public function edit(User $users, Request $request)
     {
+
+        // $user_icons = Storage::allFiles('public/user_image');
+
+        // substr($files[0], 10);
+
+        // dd(substr($files[0], 17));
+
+        // dd(count(Cook::all()));
+
+        $cook_images = Storage::allFiles('public/cook_image');
+
+        dd(substr($cook_images[0], 18));
+
+        $user_icons = Storage::allFiles('public/user_image');
+
+        // dd(count(Cook::All()));
+
+        dd($user_icons);
+
+
         $request->session()->put('user_id', $users->id);
 
         return view('users_edit', ['user' => $users]);
@@ -56,7 +77,6 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required | string',
             'email' => 'required | max:255',
