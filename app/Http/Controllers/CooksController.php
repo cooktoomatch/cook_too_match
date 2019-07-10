@@ -93,12 +93,8 @@ class CooksController extends Controller
 
         $requestBox = $request->all();
 
-        dd($request->file('image'));
-
         $requestBox['start_time'] = $start_time;
         $requestBox['end_time'] = $end_time;
-
-        // dd($requestBox);
 
         $rules = [
             'name'   => 'required | max:255',
@@ -118,14 +114,12 @@ class CooksController extends Controller
             return redirect('/cooks/create')->withErrors($validator)->withInput();
         }
 
-        // dd($start_time);
-
         $cooks = new Cook;
         $cooks->name = $request->name;
-        // if (isset($request->image)) {
-        //     $filename = $request->file('image')->store('public/cook_image');
-        //     $cooks->image = basename($filename);
-        // }
+        if (isset($request->image)) {
+            $filename = $request->file('image')->store('public/cook_image');
+            $cooks->image = basename($filename);
+        }
         $cooks->description = $request->description;
         $cooks->user_id = Auth::id();
         $cooks->category_id = $request->category;
