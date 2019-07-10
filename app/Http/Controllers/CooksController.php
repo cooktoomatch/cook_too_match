@@ -9,6 +9,7 @@ use App\Http\Requests\CookUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Cook;
 use App\User;
+use App\Image;
 use App\Cook_category;
 use App\Comment;
 use Validator;
@@ -29,7 +30,8 @@ class CooksController extends Controller
 
     public function map()
     {
-        return User::with('cooks.image')->get();
+        return $users = User::with('cooks.images')->get();
+
     }
 
     public function get_cooks(Request $request)
@@ -93,16 +95,14 @@ class CooksController extends Controller
 
         $requestBox = $request->all();
 
-        dd($request->file('image'));
-
         $requestBox['start_time'] = $start_time;
         $requestBox['end_time'] = $end_time;
 
-        // dd($requestBox);
-
         $rules = [
             'name'   => 'required | max:255',
-            'image' => 'required | file | image | mimes:jpeg,png',
+            'image_1' => 'required | file | image | mimes:jpeg,png',
+            'image_2' => 'file | image | mimes:jpeg,png',
+            'image_3' => 'file | image | mimes:jpeg,png',
             'category' => 'required | integer',
             'description' => 'required',
             'price'   => 'required',
@@ -118,14 +118,8 @@ class CooksController extends Controller
             return redirect('/cooks/create')->withErrors($validator)->withInput();
         }
 
-        // dd($start_time);
-
         $cooks = new Cook;
         $cooks->name = $request->name;
-        // if (isset($request->image)) {
-        //     $filename = $request->file('image')->store('public/cook_image');
-        //     $cooks->image = basename($filename);
-        // }
         $cooks->description = $request->description;
         $cooks->user_id = Auth::id();
         $cooks->category_id = $request->category;
@@ -135,6 +129,28 @@ class CooksController extends Controller
         $cooks->start_time = $start_time;
         $cooks->end_time = $end_time;
         $cooks->save();
+
+        $imageFileNames = [];
+        if (isset($request->image_1)) {
+            $filename1 = $request->file('image_1')->store('public/cook_image');
+            array_push($imageFileNames, basename($filename1));
+        }
+        if (isset($request->image_2)) {
+            $filename2 = $request->file('image_2')->store('public/cook_image');
+            array_push($imageFileNames, basename($filename2));
+        }
+        if (isset($request->image_3)) {
+            $filename3 = $request->file('image_3')->store('public/cook_image');
+            array_push($imageFileNames, basename($filename3));
+        }
+
+        for ($i =0; $i<count($imageFileNames); $i++) {
+            $images = new Image;
+            $images->cook_id = $cooks->id;
+            $images->image = $imageFileNames[$i];
+            $images->save();
+        }
+
         return redirect('/cooks');
     }
 

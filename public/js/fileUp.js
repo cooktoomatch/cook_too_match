@@ -2,6 +2,58 @@ function i(value) {
     console.log(value)
 }
 
+// let count = 1;
+function setFile(c) {
+    let count = 1;
+
+    if (c !== 1) {
+        count = Number($(`#image-file-${c}`)[0].id.split('-')[2]);
+        // debugger;
+    }
+    
+    // debugger;
+    $(`#image-file-${count}`).change(function (e) {
+        let file = e.target.files[0];
+
+        const reader = new FileReader();
+        if (file.type.indexOf("image") < 0) {
+            alert("画像ファイルを指定してください。");
+            return false;
+        }
+
+        reader.onload = (function (file) {
+            return function (e) {
+                // debugger;
+                $(`#upArea-${count}`).append(`<img class='upImg upImg-${count} img-raised'>`);
+                $(`.upImg-${count}`).attr("src", e.target.result);
+                $(`.upImg-${count}`).attr("title", file.name);
+
+                $(`#file-btn-${count}`).css('display', 'none');
+
+                count++;
+
+                if (count === 4) return;
+
+                const fileGroup = `<div class="fileGroup-${count}">
+                                   <div id="upArea-${count}"></div>
+                                   <div id="file-btn-${count}" class="fileBtn form-control form-file" onClick="$('#image-file-${count}').click();">追加でファイルを選択</div>
+                                   <input id="image-file-${count}" type="file" class="custom-file-input" name="image_${count}" placeholder="サムネイル" style="display: none;">
+                                   </div>`;
+
+                
+                $('#fileArea').append(fileGroup);
+
+                
+                // debugger;
+                setFile(count);
+            };
+        })(file);
+
+        reader.readAsDataURL(file);
+    });
+};
+
+setFile(1);
 // var count
 
 // $('.form-file').on('click', function (e) {
@@ -14,50 +66,50 @@ function i(value) {
 
 // })
 
-$('.file').change(function (e) {
+// $('.file').change(function (e) {
 
-    i(e)
+//     // i(e)
 
-    //固有のクラス名
-    let className = $('.file').attr('class').split(' ')[2]
+//     //固有のクラス名
+//     let className = $('.file').attr('class').split(' ')[2]
 
-    let count = Number(className.slice(5))
-    i(count)
+//     let count = Number(className.slice(5))
+//     // i(count)
 
-    i(className)
+//     // i(className)
 
-    let file = e.target.files[0];
+//     let file = e.target.files[0];
 
-    let file_name = file.name
+//     let file_name = file.name
 
 
-    let period = file_name.indexOf('.')
+//     let period = file_name.indexOf('.')
 
-    file_name = file_name.substr(0, period)
+//     file_name = file_name.substr(0, period)
 
-    i(file_name)
+//     // i(file_name)
 
-    var reader = new FileReader();
+//     var reader = new FileReader();
 
-    if (file.type.indexOf("image") < 0) {
-        alert("画像ファイルを指定してください。");
-        return false;
-    }
+//     if (file.type.indexOf("image") < 0) {
+//         alert("画像ファイルを指定してください。");
+//         return false;
+//     }
 
-    reader.onload = (function (file) {
+//     reader.onload = (function (file) {
 
-        return function (e) {
-            $("#upArea").append(`<img class="upImg-${file_name} img-raised">`);
-            $(`.upImg-${file_name}`).attr("src", e.target.result);
-            $(`.upImg-${file_name}`).attr("title", file.name);
-        };
-    })(file);
-    reader.readAsDataURL(file);
+//         return function (e) {
+//             $("#upArea").append(`<img class="upImg-${file_name} img-raised">`);
+//             $(`.upImg-${file_name}`).attr("src", e.target.result);
+//             $(`.upImg-${file_name}`).attr("title", file.name);
+//         };
+//     })(file);
+//     reader.readAsDataURL(file);
 
-    $(`.${className}`).css('display', 'none')
-    $('.custom-file').append(`<input type="file" class="file custom-file-input file-${count +1}" name="image">`)
+//     $(`.${className}`).css('display', 'none')
+//     $('.custom-file').append(`<input type="file" class="file custom-file-input file-${count +1}" name="image">`)
 
-})
+// })
 
 
 
@@ -76,26 +128,23 @@ $('.file').change(function (e) {
 //     // clickAction(count);
 // })
 
-// $('#image').change(function (e) {
+// $('.file').change(function (e) {
 //     var file = e.target.files[0];
 
-//     console.log(file)
+//     // console.log(file)
 
-//     console.log('----------------------------------')
+//     // console.log('----------------------------------')
 
 //     var reader = new FileReader();
-//     // if (file.type.indexOf("image") < 0) {
-//     //     alert("画像ファイルを指定してください。");
-//     //     return false;
-//     // }
-//     console.log(reader)
-//     console.log('----------------------------------')
+//     if (file.type.indexOf("image") < 0) {
+//         alert("画像ファイルを指定してください。");
+//         return false;
+//     }
+//     // console.log(reader)
+//     // console.log('----------------------------------')
 
 
 //     reader.onload = (function (file) {
-
-//         console.log(file)
-
 //         return function (e) {
 //             $("#upArea").append("<img class='upImg img-raised'>");
 //             $(".upImg").attr("src", e.target.result);
@@ -104,5 +153,5 @@ $('.file').change(function (e) {
 //     })(file);
 //     reader.readAsDataURL(file);
 
-//     console.log(reader.readAsDataURL(file))
+//     // console.log(reader.readAsDataURL(file))
 // });

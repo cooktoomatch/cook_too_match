@@ -37,8 +37,6 @@ async function getCooks(lat, lng) {
     await axios.get(`/jsonCooks`, {params: params})
         .then(res => {
             renderCooks(res.data);
-            // c(users.cooks[0].image.image)
-            setGeo();
         })
         .catch(e => {
             alert(e.response.data.errors.content);
@@ -52,10 +50,14 @@ function renderCooks(cooks) {
 
 
 // 距離と時間の取得
-async function getDistance(lat, lng, user) {
+function getDistance(lat, lng, user) {
     const service = new google.maps.DistanceMatrixService();
     const origin = new google.maps.LatLng(lat, lng);
-    const destination = new google.maps.LatLng(user.latitude, user.longitude);
+
+    const dLat = user.latitude ? user.latitude : 35;
+    const dLng = user.longitude ? user.longitude : 135;
+
+    const destination = new google.maps.LatLng(dLat, dLng);
     const cooks = user.cooks;
 
     service.getDistanceMatrix({
@@ -65,12 +67,16 @@ async function getDistance(lat, lng, user) {
     }, callback);
 
     function callback(response, status) {
-        const distance = response.rows[0].elements[0].distance.text;
-        const duration = response.rows[0].elements[0].duration.text;
+        if (response.rows[0].elements[0].status !== "ZERO_RESULTS") {
+            const distance = response.rows[0].elements[0].distance.text;
+            const duration = response.rows[0].elements[0].duration.text;
 
-        cooks.forEach(cook => {
-            renderDistance(cook.id, distance, duration)
-        });
+            if (cooks.length !== 0) {
+                cooks.forEach(cook => {
+                    renderDistance(cook.id, distance, duration)
+                });
+            }
+        }
     }
 }
 
@@ -89,14 +95,18 @@ function setGeo() {
 const geoInit = async position => {
     let lat = position.coords.latitude;
     let lng = position.coords.longitude;
-
-    initMap(lat, lng); // Map起動
-
-    await getCooks(lat, lng); // cooks取得
     
-    users.forEach(user => {
-        getDistance(lat, lng, user); // 距離取得
-    });
+    initMap(lat, lng); // Map起動
+    
+    await getCooks(lat, lng) // cooks取得
+        .then(() => {
+            users.forEach(user => {
+                getDistance(lat, lng, user); // 距離取得
+            });
+        })
+        .catch(e => {
+            alert(e.response.data.errors.content);
+        });
 };
 
 const geoError = error => {
@@ -116,10 +126,7 @@ const geoConf = {
 // Map起動の関数
 function initMap(lat, lng) {
     let zoom = 12;
-    let center = {
-        lat: lat,
-        lng: lng
-    };
+    const center = new google.maps.LatLng(lat, lng);
 
     // map生成
     const map = new google.maps.Map(document.getElementById('map'), {
@@ -135,12 +142,10 @@ function initMap(lat, lng) {
 
     // ユーザーマーカー
     users.forEach(user => {
+        const position = new google.maps.LatLng(user.latitude, user.longitude);
         const marker = new google.maps.Marker({
             map: map,
-            position: {
-                lat: user.latitude,
-                lng: user.longitude
-            },
+            position: position,
             icon: {
                 url: `storage/user_icon/${user.icon}`,
                 size: new google.maps.Size(46, 46),
@@ -151,17 +156,11 @@ function initMap(lat, lng) {
             animation: google.maps.Animation.DROP
         });
 
-        var origin = new google.maps.LatLng(lat, lng);
-        var destination = new google.maps.LatLng(user.latitude, user.longitude);
-
         let cookImages = "";
         user.cooks.forEach(cook => {
-
-            // c(cook.image.image)
-
             cookImages += `<a href="cooks/show/${cook.id}">
-                            <img src="storage/cook_image/${cook.image.image}" class="infoCookImg">
-                            </a>`;
+                           <img src="storage/cook_image/${cook.images[0].image}" class="infoCookImg">
+                           </a>`;
         });
 
         const info = `<div>

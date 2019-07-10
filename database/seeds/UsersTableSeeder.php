@@ -16,28 +16,28 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user_icons = Storage::allFiles('public/user_icon');
+        // $user_icons = Storage::allFiles('public/user_icon');
 
 
-        $faker = Faker::create('ja_JP');
+        // $faker = Faker::create('ja_JP');
 
-        User::create([
-            'name' => 'kaka',
-            'email' => 'kaka@gmail.com',
-            'password' => Hash::make('asdfghjkl'),
-            'icon' => substr($user_icons[1], 17),
-            'description' => 'kaka',
-            'address' => $faker->address,
-        ]);
+        // User::create([
+        //     'name' => 'kaka',
+        //     'email' => 'kaka@gmail.com',
+        //     'password' => Hash::make('asdfghjkl'),
+        //     'icon' => substr($user_icons[1], 17),
+        //     'description' => 'kaka',
+        //     'address' => $faker->address,
+        // ]);
 
-        User::create([
-            'name' => 'aaa',
-            'email' => 'a@a.com',
-            'password' => Hash::make('aaaaaa'),
-            'icon' => substr($user_icons[0], 17),
-            'description' => 'aaaです、こんにちは',
-            'address' => $faker->address,
-        ]);
+        // User::create([
+        //     'name' => 'aaa',
+        //     'email' => 'a@a.com',
+        //     'password' => Hash::make('aaaaaa'),
+        //     'icon' => substr($user_icons[0], 17),
+        //     'description' => 'aaaです、こんにちは',
+        //     'address' => $faker->address,
+        // ]);
 
         // Cook::create([
         //     'name' => 'カレーパンマン',
@@ -53,17 +53,17 @@ class UsersTableSeeder extends Seeder
         //     'content' => 'まじ卍',
         // ]);
 
-        for ($i = 0; $i <= 250; $i++) {
-            User::create([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'password' => Hash::make('testtest'),
-                'icon' => substr($user_icons[mt_rand(1, count($user_icons) - 1)], 17),
-                'description' => $faker->text,
-                'address' => $faker->address,
-                'latitude' => $faker->latitude,
-                'longitude' => $faker->longitude,
-            ]);
-        }
+        // for ($i = 0; $i <= 10; $i++) {
+        //     User::create([
+        //         'name' => $faker->name,
+        //         'email' => $faker->email,
+        //         'password' => Hash::make('testtest'),
+        //         'icon' => substr($user_icons[mt_rand(1, count($user_icons) - 1)], 17),
+        //         'description' => $faker->text,
+        //         'address' => $faker->address,
+        //         'latitude' => $faker->latitude,
+        //         'longitude' => $faker->longitude,
+        //     ]);
+        // }
     }
 }

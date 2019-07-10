@@ -22,11 +22,15 @@
                     <span class="errors">※{{ $errors->first('image') }}</span class="errors">
                 </div>
                 @endif
-                <div id="upArea"></div>
-                <!-- <div id="form-file" class="fileBtn-1 form-control form-file">ファイルを選択</div> -->
-                <input type="file" class="file custom-file-input file-1" name="image" placeholder="サムネイル">
+                <div id="fileArea">
+                    <div class="fileGroup-1">
+                        <div id="upArea-1"></div>
+                        <div id="file-btn-1" class="fileBtn form-control form-file" onClick="$('#image-file-1').click();">ファイルを選択</div>
+                        <input id="image-file-1" type="file" class="file custom-file-input file-1" name="image_1" placeholder="サムネイル" style="display: none;">
+                    </div>
+                </div>
             </div>
-            <div class="form-group input-lg">
+            <div class="form-group input-lg descriptionForm">
                 @if($errors->has('description'))
                 <div class="error-box">
                     <span class="errors">※{{ $errors->first('description') }}</span class="errors">
@@ -169,9 +173,12 @@
         height: 49px;
     }
 
-    /* .file {
-        display: none;
-    } */
+    .descriptionForm {
+        margin-top: 20px;
+    }
+    .custom-file {
+        height: auto;
+    }
 
     .selectWrap.col-4+.selectWrap.col-4 {
         padding-left: 5px;

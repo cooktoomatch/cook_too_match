@@ -14,27 +14,27 @@ class ImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        $cook_images = Storage::allFiles('public/cook_image');
+        // $cook_images = Storage::allFiles('public/cook_image');
 
-        for ($i = 0; $i < count(Cook::all()); $i++) {
-            Image::create([
-                'cook_id' => $i,
-                'image' => substr($cook_images[mt_rand(1, count($cook_images) - 1)], 18),
-            ]);
-        }
+        // for ($i = 0; $i < count(Cook::all()); $i++) {
+        //     Image::create([
+        //         'cook_id' => $i,
+        //         'image' => substr($cook_images[mt_rand(1, count($cook_images) - 1)], 18),
+        //     ]);
+        // }
 
-        for ($i = 0; $i < count(Cook::all()); $i++) {
-            Image::create([
-                'cook_id' => $i,
-                'image' => substr($cook_images[mt_rand(1, count($cook_images) - 1)], 18),
-            ]);
-        }
+        // for ($i = 0; $i < count(Cook::all()); $i++) {
+        //     Image::create([
+        //         'cook_id' => $i,
+        //         'image' => substr($cook_images[mt_rand(1, count($cook_images) - 1)], 18),
+        //     ]);
+        // }
 
-        for ($i = 0; $i < count(Cook::all()); $i++) {
-            Image::create([
-                'cook_id' => $i,
-                'image' => substr($cook_images[mt_rand(1, count($cook_images) - 1)], 18),
-            ]);
-        }
+        // for ($i = 0; $i < count(Cook::all()); $i++) {
+        //     Image::create([
+        //         'cook_id' => $i,
+        //         'image' => substr($cook_images[mt_rand(1, count($cook_images) - 1)], 18),
+        //     ]);
+        // }
     }
 }
