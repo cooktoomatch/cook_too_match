@@ -9,6 +9,7 @@ use App\Http\Requests\CookUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Cook;
 use App\User;
+use App\Cook_category;
 use App\Comment;
 use Validator;
 use Auth;
@@ -28,7 +29,7 @@ class CooksController extends Controller
 
     public function map()
     {
-        return User::with('cooks')->get();
+        return User::with('cooks.image')->get();
     }
 
     public function index()
@@ -51,7 +52,11 @@ class CooksController extends Controller
 
     public function create()
     {
-        return view('cooks_new');
+        $categories = Cook_category::all();
+
+        return view('cooks_new', [
+            'categories' => $categories,
+        ]);
     }
 
     public function store(Request $request)
@@ -61,6 +66,8 @@ class CooksController extends Controller
 
         $requestBox = $request->all();
 
+        dd($request->file('image'));
+
         $requestBox['start_time'] = $start_time;
         $requestBox['end_time'] = $end_time;
 
@@ -69,6 +76,7 @@ class CooksController extends Controller
         $rules = [
             'name'   => 'required | max:255',
             'image' => 'required | file | image | mimes:jpeg,png',
+            'category' => 'required | integer',
             'description' => 'required',
             'price'   => 'required',
             'num'   => 'required',
@@ -87,12 +95,13 @@ class CooksController extends Controller
 
         $cooks = new Cook;
         $cooks->name = $request->name;
-        if (isset($request->image)) {
-            $filename = $request->file('image')->store('public/cook_image');
-            $cooks->image = basename($filename);
-        }
+        // if (isset($request->image)) {
+        //     $filename = $request->file('image')->store('public/cook_image');
+        //     $cooks->image = basename($filename);
+        // }
         $cooks->description = $request->description;
         $cooks->user_id = Auth::id();
+        $cooks->category_id = $request->category;
         $cooks->price = $request->price;
         $cooks->num = $request->num;
         $cooks->etc = $request->etc;
@@ -143,8 +152,6 @@ class CooksController extends Controller
             return redirect('/cooks/edit/' . $request->session()->pull("cook_id"))->withErrors($validator)->withInput();
         }
 
-
-
         $cooks = Cook::find($request->id);
         $cooks->name = $request->name;
         if ($request->file('image')) {
@@ -163,7 +170,7 @@ class CooksController extends Controller
         $cooks->start_time = $start_time;
         $cooks->end_time = $end_time;
         $cooks->save();
-        return redirect('/cooks');
+        return redirect('/cooks/edit/1');
     }
 
     public function destroy(Cook $cook)

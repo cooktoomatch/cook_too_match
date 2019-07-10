@@ -2,18 +2,28 @@ function c(v) {
     console.log(v);
 };
 
+var isset = function (data) {
+    if (data === "" || data === null || data === undefined) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
 let users;
 
 // user取得
 async function getUsers() {
-  await axios.get(`/jsonMap`)
-      .then(res => {
-          users = res.data;
-          setGeo();
-      })
-      .catch(e => {
-          alert(e.response.data.errors.content);
-      });
+    await axios.get(`/jsonMap`)
+        .then(res => {
+            users = res.data;
+
+            // c(users.cooks[0].image.image)
+            setGeo();
+        })
+        .catch(e => {
+            alert(e.response.data.errors.content);
+        });
 }
 
 // google maps script コールバックで起動
@@ -49,7 +59,7 @@ function initMap(lat, lng) {
         lat: lat,
         lng: lng
     };
-    
+
     // map生成
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: zoom,
@@ -82,8 +92,11 @@ function initMap(lat, lng) {
 
         let cookImages = "";
         user.cooks.forEach(cook => {
+
+            // c(cook.image.image)
+
             cookImages += `<a href="cooks/show/${cook.id}">
-                            <img src="storage/cook_image/${cook.image}" class="infoCookImg">
+                            <img src="storage/cook_image/${cook.image.image}" class="infoCookImg">
                             </a>`;
         });
 

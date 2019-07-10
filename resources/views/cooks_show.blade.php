@@ -12,7 +12,7 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
-                    <img class="d-block" src="{{ asset('storage/cook_image/' . $cook->image) }}" alt="First slide">
+                    <img class="d-block" src="{{ asset('storage/cook_image/' . $cook->image->image) }}" alt="First slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Nature, United States</h5>
                     </div>

@@ -18,6 +18,9 @@ class ConversationsController extends Controller
     {
         $current_user_id = Auth::user()->id;
         $conversations = Conversation::where('sender_user_id', $current_user_id)->orwhere('recipient_user_id', $current_user_id)->get();
+
+        // dd($conversations);
+
         return view('conversations_index', ['conversations' => $conversations]);
     }
 
