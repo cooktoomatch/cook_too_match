@@ -24,10 +24,6 @@
                 @endif
                 <input type="email" name="email" value="{{ old('email',$user->email) }}" class="form-control" placeholder="メールアドレス">
             </div>
-            <!-- <div class="custom-file">
-                <label for="icon" class="control-label" placeholder="サムネイル"></label>
-                <input id="icon" type="file" class="custom-file-input" name="icon" placeholder="サムネイル">
-            </div> -->
             <div class="custom-file">
                 <label for="" class="control-label">アイコン</label>
                 @if($errors->has('image'))
@@ -179,7 +175,7 @@
 @section("script")
 <script src="{{ asset('js/ajaxzip2.js') }}"></script>
 <script src="{{ asset('js/select.js') }}"></script>
-<script src="{{ asset('js/fileUp.js') }}"></script>
+<script src="{{ asset('js/fileUpUser.js') }}"></script>
 @endsection
 
 @section('style')

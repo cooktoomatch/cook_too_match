@@ -50,6 +50,14 @@ class CooksController extends Controller
         return view('layouts/components/cookShow', ['cooks' => $sortedCooks]);
     }
 
+    public function delete_image(Image $image)
+    {   
+        $image->delete();
+        // return Cook::with('images')->find($image->cook_id);
+        $cook = Cook::with('images')->find($image->cook_id);
+        return view('layouts/components/cookImageEdit', ['cook' => $cook]);
+    }
+
     public function index()
     {
         $users = User::orderBy('created_at', 'asc')->with('cooks')->get();
@@ -180,7 +188,9 @@ class CooksController extends Controller
 
         $rules = [
             'name'   => 'required | max:255',
-            'image' => 'file | image | mimes:jpeg,png',
+            'image_1' => 'required | file | image | mimes:jpeg,png',
+            'image_2' => 'file | image | mimes:jpeg,png',
+            'image_3' => 'file | image | mimes:jpeg,png',
             'description' => 'required',
             'price'   => 'required',
             'num'   => 'required',
@@ -195,16 +205,17 @@ class CooksController extends Controller
             return redirect('/cooks/edit/' . $request->session()->pull("cook_id"))->withErrors($validator)->withInput();
         }
 
+        
+        // if ($request->file('image')) {
+        //     if ($cooks->image != basename($request->file('image'))) {
+        //         Storage::disk('local')->delete('public/cook_image/' . $cooks->image);
+        //     }
+        //     $filename = $request->file('image')->store('public/cook_image');
+        //     $cooks->image = basename($filename);
+        // }
+
         $cooks = Cook::find($request->id);
         $cooks->name = $request->name;
-        if ($request->file('image')) {
-            if ($cooks->image != basename($request->file('image'))) {
-                Storage::disk('local')->delete('public/cook_image/' . $cooks->image);
-            }
-            $filename = $request->file('image')->store('public/cook_image');
-            $cooks->image = basename($filename);
-        }
-
         $cooks->description = $request->description;
         $cooks->price = $request->price;
         $cooks->etc = $request->etc;
@@ -213,6 +224,28 @@ class CooksController extends Controller
         $cooks->start_time = $start_time;
         $cooks->end_time = $end_time;
         $cooks->save();
+
+        $imageFileNames = [];
+        if (isset($request->image_1)) {
+            $filename1 = $request->file('image_1')->store('public/cook_image');
+            array_push($imageFileNames, basename($filename1));
+        }
+        if (isset($request->image_2)) {
+            $filename2 = $request->file('image_2')->store('public/cook_image');
+            array_push($imageFileNames, basename($filename2));
+        }
+        if (isset($request->image_3)) {
+            $filename3 = $request->file('image_3')->store('public/cook_image');
+            array_push($imageFileNames, basename($filename3));
+        }
+
+        for ($i =0; $i<count($imageFileNames); $i++) {
+            $images = new Image;
+            $images->cook_id = $cooks->id;
+            $images->image = $imageFileNames[$i];
+            $images->save();
+        }
+
         return redirect('/cooks/edit/1');
     }
 

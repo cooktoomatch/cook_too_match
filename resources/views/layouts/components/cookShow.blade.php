@@ -14,10 +14,10 @@
                 <div class="card-body">
                     <a class="title cook_name" href="/cooks/show/{{ $cook->id }}">{{ $cook->name }}</a>
                     <div>
-                        <i class="fas fa-road"></i> <span class="distance-{{ $cook->id }}"></span>
+                        <span class="distance-{{ $cook->id }}"></span>
                     </div>
                     <div>
-                        <i class="fas fa-walking"></i> <span class="duration-{{ $cook->id }}"></span>
+                        <span class="duration-{{ $cook->id }}"></span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
@@ -47,5 +47,6 @@
         @endforeach
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="{{ asset('js/good.js') }}"></script>
 @endif

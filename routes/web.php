@@ -12,6 +12,7 @@ Auth::routes();
 Route::get("/jsonComment", "CooksController@json");
 Route::get("/jsonMap", "CooksController@map");
 Route::get("/jsonCooks", "CooksController@get_cooks");
+Route::delete("/jsonFileDelete/{image}", "CooksController@delete_image");
 
 Route::get('auth/login', 'Auth\SocialController@authLogin');
 Route::get('auth/login/facebook', 'Auth\SocialController@facebookRedirect');

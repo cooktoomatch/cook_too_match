@@ -22,13 +22,9 @@
                     <span class="errors">※{{ $errors->first('image') }}</span class="errors">
                 </div>
                 @endif
-                <div id="upArea">
-                    @if ($cook->image)
-                    <img src="{{asset('/storage/cook_image/'.$cook->image->image)}}" alt="thumbnail" class="upImg img-raised">
-                    @endif
+                <div id="fileArea">
+                    @include('layouts.components.cookImageEdit')
                 </div>
-                <div onclick="$('#image').click();" class="fileBtn form-control">ファイルを選択</div>
-                <input id="image" type="file" class="custom-file-input" name="image" placeholder="サムネイル">
             </div>
             <div class="form-group input-lg">
                 @if($errors->has('description'))
@@ -133,7 +129,7 @@
 
 @section("script")
 <script src="{{ asset('js/date.js') }}"></script>
-<script src="{{ asset('js/fileUp.js') }}"></script>
+<script id="script" src="{{ asset('js/fileUpEdit.js') }}" data-count="{{ count($cook->images) }}"></script>
 @endsection
 
 @section('style')
@@ -184,10 +180,25 @@
         line-height: 44px;
         box-sizing: border-box;
         padding: 0;
+        margin-bottom: 30px;
     }
 
     .upImg {
         margin-bottom: 20px;
+    }
+
+    .custom-file {
+        height: auto;
+    }
+
+    .upArea {
+        position: relative;
+    }
+
+    .deleteBtn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
     }
 </style>
 @endsection

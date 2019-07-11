@@ -1,19 +1,5 @@
-function c(v) {
-    console.log(v);
-};
-
-
 const DISTANCE = 1000;
 const TRAVEL_MODEL = 'WALKING';
-
-var isset = function (data) {
-    if (data === "" || data === null || data === undefined) {
-        return false;
-    } else {
-        return true;
-    }
-};
-
 let users;
 
 // user取得
@@ -48,7 +34,6 @@ function renderCooks(cooks) {
     $('#cooksArea').html(cooks);
 }
 
-
 // 距離と時間の取得
 function getDistance(lat, lng, user) {
     const service = new google.maps.DistanceMatrixService();
@@ -82,8 +67,8 @@ function getDistance(lat, lng, user) {
 
 // 距離と時間のレンダリング
 function renderDistance(cook_id, distance, duration) {
-    $(`.distance-${cook_id}`).html(distance);
-    $(`.duration-${cook_id}`).html(duration);
+    $(`.distance-${cook_id}`).html(`<i class="fas fa-road"></i> ${distance}`);
+    $(`.duration-${cook_id}`).html(`<i class="fas fa-walking"></i> ${duration}`);
 };
 
 // google maps script コールバックで起動
@@ -97,7 +82,7 @@ const geoInit = async position => {
     let lng = position.coords.longitude;
     
     initMap(lat, lng); // Map起動
-    
+
     await getCooks(lat, lng) // cooks取得
         .then(() => {
             users.forEach(user => {
